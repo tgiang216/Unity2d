@@ -23,8 +23,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
     [SerializeField]
     private BoxCollider2D boxcollider2D;
-    [SerializeField]
-    private CapsuleCollider2D capsuleCollider2D;
+ 
     [SerializeField]
     private SpriteRenderer renderer;
     [SerializeField]
@@ -106,7 +105,7 @@ public class PlayerController : MonoBehaviour
             combo++;
         }
     }
-    public void FinistAtkAnim()
+    public void FinishAtkAnim() //finish
     {
         isAttacking= false;
         combo = 0;
@@ -116,12 +115,12 @@ public class PlayerController : MonoBehaviour
     private LayerMask jumpAbleGround;
     private bool IsGround()
     {
-        Debug.DrawRay(capsuleCollider2D.bounds.center, Vector2.down * (capsuleCollider2D.bounds.size.y / 2f + 0.1f), Color.red);
-        return Physics2D.BoxCast(capsuleCollider2D.bounds.center,
-            capsuleCollider2D.bounds.size, 0f, Vector2.down, 0.1f, jumpAbleGround);
-        //Debug.DrawRay(boxcollider2D.bounds.center, Vector2.down* (boxcollider2D.bounds.size.y/2f+ 0.1f), Color.red);
-        //return Physics2D.BoxCast(boxcollider2D.bounds.center,
-        //    boxcollider2D.bounds.size, 0f, Vector2.down, 0.1f, jumpAbleGround);
+        //Debug.DrawRay(capsuleCollider2D.bounds.center, Vector2.down * (capsuleCollider2D.bounds.size.y / 2f + 0.1f), Color.red);
+        //return Physics2D.BoxCast(capsuleCollider2D.bounds.center,
+        // capsuleCollider2D.bounds.size, 0f, Vector2.down, 0.1f, jumpAbleGround);
+        Debug.DrawRay(boxcollider2D.bounds.center, Vector2.down* (boxcollider2D.bounds.size.y/2f+ 0.1f), Color.red);
+        return Physics2D.BoxCast(boxcollider2D.bounds.center,
+        boxcollider2D.bounds.size, 0f, Vector2.down, 0.1f, jumpAbleGround);
     }
 
 }

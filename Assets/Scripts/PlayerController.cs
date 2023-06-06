@@ -29,6 +29,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Animator anim;
 
+    [SerializeField]
+    private float jumpHeight = 5;
+    private bool isJumping = false;
+    private bool isDoubleJump = false;
     private void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -40,15 +44,15 @@ public class PlayerController : MonoBehaviour
     
     private void Update()
     {
-        
 
-        directionX = Input.GetAxisRaw("Horizontal");
+
+        GetInput();
 
         ChangeDirection();
         UpdateAnimation();
         //Debug.Log("IsGround ? " + IsGround());
         AttackCombo();
-
+        Jumping();
         Debug.Log("state : " + state);
     }
 
@@ -56,6 +60,11 @@ public class PlayerController : MonoBehaviour
     {     
         Moving();
     }
+    private void GetInput() 
+    {
+        directionX = Input.GetAxisRaw("Horizontal");
+    }
+
     private void ChangeDirection()
     {
         if (directionX > 0) // nhan vat quay sang phai
@@ -94,6 +103,43 @@ public class PlayerController : MonoBehaviour
         //transform.position = new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z);
     }
 
+
+    private void Jumping()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            isJumping = true;
+        }
+
+        if (Input.GetButtonUp("Jump"))
+        {
+            isJumping = false;
+        }
+        if (IsGround() && !isJumping)
+        {
+            isDoubleJump = false;
+        }
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (IsGround() || isDoubleJump)
+            {
+                //rb2d.velocity = new Vector2(rb2d.velocity.x, jumpHeight);
+                rb2d.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
+                isDoubleJump = !isDoubleJump;
+                
+            }
+
+        }
+        if (rb2d.velocity.y >= 0)
+        {
+            rb2d.gravityScale = 2f;
+        }
+        else if (rb2d.velocity.y < 0)
+        {
+            rb2d.gravityScale = 10f;
+        }
+    }
     [SerializeField]
     private int combo = 0;
     private bool isAttacking = false;

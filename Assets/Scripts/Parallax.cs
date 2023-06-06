@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,8 +8,11 @@ public class Parallax : MonoBehaviour
     public Transform camera;
     public float relative = 0.3f;
     public bool lockY = false;
-    
 
+    private void Start()
+    {
+        camera = FindObjectOfType<CinemachineVirtualCamera>().transform;
+    }
     // Update is called once per frame
     void Update()
     {

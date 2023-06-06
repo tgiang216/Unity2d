@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     }
     private State state;
     [SerializeField]
-    private float moveSpeed = 5f;
+    private float moveSpeed = 7f;
     private float directionX;
     private bool isFacingRight = true;
 
@@ -41,11 +41,15 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         
+
         directionX = Input.GetAxisRaw("Horizontal");
+
         ChangeDirection();
         UpdateAnimation();
-        Debug.Log("IsGround ? " + IsGround());
+        //Debug.Log("IsGround ? " + IsGround());
         AttackCombo();
+
+        Debug.Log("state : " + state);
     }
 
     private void FixedUpdate()
@@ -70,17 +74,23 @@ public class PlayerController : MonoBehaviour
     }
     private void UpdateAnimation()
     {
-        
-        if(directionX != 0) 
+        if (state == State.Attack) return;
+        if (directionX != 0 ) 
         {
             state = State.Running;
         }
-        else state= State.Idle;
+        else 
+        {
+            state = State.Idle;
+        } 
+           
         anim.SetInteger("State", (int)state);
     }
     private void Moving()
     {
+        
         rb2d.velocity = new Vector2(directionX * moveSpeed, rb2d.velocity.y);
+        if(state== State.Attack) { rb2d.velocity = Vector2.zero; }
         //transform.position = new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z);
     }
 
@@ -93,13 +103,14 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !isAttacking)
         {
             isAttacking = true;
-            //state = State.Attack1;
-            anim.SetTrigger("" + combo);
+            state = State.Attack;
+            anim.SetTrigger("combo" + combo);
         }
     }
     public void StartCombo()
     {
         isAttacking = false;
+        state= State.Attack;
         if(combo < 2)
         {
             combo++;
@@ -109,6 +120,7 @@ public class PlayerController : MonoBehaviour
     {
         isAttacking= false;
         combo = 0;
+        state = State.Idle;
     }
 
     [SerializeField]

@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
         boxcollider2D = GetComponent<BoxCollider2D>();
         renderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        state= State.Idle;
+        state = State.Idle;
     }
     
     private void Update()

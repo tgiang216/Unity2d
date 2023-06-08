@@ -4,22 +4,40 @@ using UnityEngine;
 
 public class Moving : BaseState
 {
-    private float horizontalInput;
-    public Moving(MovementSM stateMachine) : base("Moving", stateMachine) { }
+    private MovementSM sm;
+    //private float horizontalInput;
+    public Moving(MovementSM stateMachine) : base("Moving", stateMachine) 
+    {
+        sm = (MovementSM)stateMachine;
+    }
     public override void Enter()
     {
         base.Enter();
-        horizontalInput = 0f;
+        Debug.Log("Enter Move state");
+        sm.horizontalInput = 0f;
     }
 
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-        horizontalInput = Input.GetAxis("Horizontal");
-        if(Mathf.Abs(horizontalInput) < Input.GetAxis("Horizontal"))
+        sm.horizontalInput = Input.GetAxis("Horizontal");
+        if(Mathf.Abs(sm.horizontalInput) < Mathf.Epsilon)
         {
-            stateMachine.ChangeState(((MovementSM)stateMachine).moveState);
-
+            sm.ChangeState(sm.idleState);
+        }
+        if (Input.GetKeyDown(KeyCode.Space) && sm.IsGround())
+        {
+            sm.ChangeState(sm.jumpState);
         }
     }
+
+    public override void UpdatePhysics()
+    {
+        base.UpdatePhysics();
+        Vector2 vel = sm.rb.velocity;
+        vel.x = sm.horizontalInput * sm.moveSpeed;
+        sm.rb.velocity = vel;
+    }
+
+   
 }

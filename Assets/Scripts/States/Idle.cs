@@ -4,14 +4,32 @@ using UnityEngine;
 
 public class Idle : BaseState
 {
-    private float horizontalInput;
+    private MovementSM sm;
+    //private float horizontalInput;
     public Idle(MovementSM stateMachine) : base("Idle", stateMachine) 
     {
-        horizontalInput = 0f;
+        sm= stateMachine;
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
+        Debug.Log("Enter Idle state");
+        sm.horizontalInput = 0;
     }
     public override void UpdateLogic()
     {
-        base.UpdateLogic();
-        horizontalInput = Input.GetAxis("Horizontal");
+        
+        //horizontalInput = Input.GetAxis("Horizontal");
+        //Debug.Log("horizontalInput" + horizontalInput);
+        if(Mathf.Abs(sm.horizontalInput) > Mathf.Epsilon) 
+        {
+           
+            sm.ChangeState(sm.moveState);
+        }
+        if(Input.GetKeyDown(KeyCode.Space) && sm.IsGround())
+        {
+            sm.ChangeState(sm.jumpState);
+        }
     }
 }

@@ -8,17 +8,25 @@ public class StateMachine : MonoBehaviour
 
     void Start()
     {
+        
         currentState = GetInitState();
     }
 
-
-    void Update()
+    protected virtual void UpdateState()
     {
-        if(currentState != null) { currentState.UpdateLogic(); }
 
     }
+    void Update()
+    {
+        if(currentState != null) 
+        {
+           // Debug.Log("Update running");
+            currentState.UpdateLogic(); 
+        }
+        UpdateState();
+    }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
         if (currentState != null) { currentState.UpdatePhysics(); }
 
@@ -31,7 +39,7 @@ public class StateMachine : MonoBehaviour
         currentState.Enter();
     }
 
-    private BaseState GetInitState()
+    protected virtual BaseState GetInitState()
     {
         return null;
     }
@@ -39,6 +47,6 @@ public class StateMachine : MonoBehaviour
     private void OnGUI()
     {
         string content = currentState != null ? currentState.name : "{no current steate}";
-        GUILayout.Label($"<color='black'><size=40>{content}</size><color>");
+        GUILayout.Label($"<color='black'><size=40>{content}</size></color>");
     }
 }

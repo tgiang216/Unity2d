@@ -14,31 +14,48 @@ public class Jumping : BaseState
     public override void Enter()
     {
         base.Enter();
+        sm.rb.AddForce(new Vector2(0, sm.jumpForce), ForceMode2D.Impulse);
         sm.isJumping = true;
         sm.jumpTime = 0;
+        sm.animator.Play("PlayerJump");
+
+        Debug.Log("Enter Jump state");
     }
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-        if (Input.GetKeyDown(KeyCode.Space) && sm.IsGround())
+        if (Input.GetKey(KeyCode.Space) && sm.IsGround())
         {
-            sm.isJumping = true;
-            sm.jumpTime = 0;
+        
         }
         if (sm.isJumping)
         {
             //stateMachine.ChangeState(sm.jumpState);
-            sm.rb.velocity = new Vector2(sm.rb.velocity.x,sm.jumpForce);
+          
+            //sm.rb.velocity = new Vector2(sm.rb.velocity.x,sm.jumpForce);
             sm.jumpTime += Time.deltaTime;
+        
+            if(sm.jumpTime > sm.buttonPressTime)
+            {
+                sm.isJumping = false;
+            }
         }
         if(Input.GetKeyUp(KeyCode.Space) | sm.jumpTime > sm.buttonPressTime)
         {
             sm.isJumping = false;
             sm.ChangeState(sm.fallState);
+
         }
-
+        if(sm.rb.velocity.y < 0)
+        {
+            sm.ChangeState(sm.fallState); 
+        }
     }
-
+    public override void UpdatePhysics()
+    {
+       
+        MoveLeft_Right();
+    }
     public override void Exit()
     {
         base.Exit();
@@ -46,8 +63,21 @@ public class Jumping : BaseState
         sm.jumpTime = 0;
     }
 
-    public override void UpdatePhysics()
+   
+    private void MoveLeft_Right()
     {
-        
+        Vector2 vel = sm.rb.velocity;
+        if (vel.x > 0f)
+        {
+            sm.isFacingRight = true;
+            sm.transform.localScale = new Vector3(1, 1, 1);
+        }
+        else if (vel.x < 0f)
+        {
+            sm.isFacingRight = false;
+            sm.transform.localScale = new Vector3(-1, 1, 1);
+        }
+        vel.x = sm.horizontalInput * sm.moveSpeed;
+        sm.rb.velocity = vel;
     }
 }

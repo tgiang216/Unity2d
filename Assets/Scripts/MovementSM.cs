@@ -14,10 +14,14 @@ public class MovementSM : StateMachine
     [HideInInspector]
     public Falling fallState;
 
-    [Header("Player Physic")]
+    [Header("Player Setting")]
     public Rigidbody2D rb;
     public BoxCollider2D boxcollider2D;
     public float horizontalInput;
+    public Animator animator;
+    public SpriteRenderer renderer;
+    public bool isFacingRight = true;
+
     [Header("Move Setting")]
     public float moveSpeed = 4f;
 
@@ -35,10 +39,20 @@ public class MovementSM : StateMachine
         jumpState = new Jumping(this);
         fallState = new Falling(this);
     }
-
-    protected override void UpdateState()
+    protected override void StartSM()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
+        Debug.Log("Get Component Chile");
+        rb=GetComponent<Rigidbody2D>();
+        boxcollider2D=GetComponent<BoxCollider2D>();
+        animator=GetComponent<Animator>();
+        renderer=GetComponent<SpriteRenderer>();
+        this.ChangeState(idleState);
+    }
+    protected override void UpdateSM()
+    {
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        Debug.Log("horizontalInput "+ horizontalInput);
+        Debug.Log("velocity " + rb.velocity);
     }
     public bool IsGround()
     {
@@ -49,9 +63,9 @@ public class MovementSM : StateMachine
         return Physics2D.BoxCast(boxcollider2D.bounds.center,
         boxcollider2D.bounds.size, 0f, Vector2.down, 0.1f, jumpAbleGround);
     }
-    protected override BaseState GetInitState()
-    {
-        Debug.Log("Innit state");
-        return idleState;
-    }
+    //protected override BaseState GetInitState()
+    //{
+    //    Debug.Log("Innit state");
+    //    return idleState;
+    //}
 }

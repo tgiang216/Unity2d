@@ -9,13 +9,12 @@ public class StateMachine : MonoBehaviour
     void Start()
     {
         
-        currentState = GetInitState();
+        //currentState = GetInitState();
+        StartSM();
     }
-
-    protected virtual void UpdateState()
-    {
-
-    }
+    
+    protected virtual void UpdateSM() {}
+    protected virtual void StartSM() { Debug.Log("Get Component Father"); }
     void Update()
     {
         if(currentState != null) 
@@ -23,7 +22,8 @@ public class StateMachine : MonoBehaviour
            // Debug.Log("Update running");
             currentState.UpdateLogic(); 
         }
-        UpdateState();
+        UpdateSM();
+        Debug.Log("State : " + currentState.name);
     }
 
     void FixedUpdate()
@@ -34,7 +34,7 @@ public class StateMachine : MonoBehaviour
 
     public void ChangeState(BaseState newState)
     {
-        currentState.Exit();
+        if(currentState != null) currentState.Exit();
         currentState = newState;
         currentState.Enter();
     }
@@ -47,6 +47,6 @@ public class StateMachine : MonoBehaviour
     private void OnGUI()
     {
         string content = currentState != null ? currentState.name : "{no current steate}";
-        GUILayout.Label($"<color='black'><size=40>{content}</size></color>");
+        GUILayout.Label($"<color='black'><size=40>{content}</size><color>");
     }
 }

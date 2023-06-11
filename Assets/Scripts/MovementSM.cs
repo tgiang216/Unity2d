@@ -19,6 +19,8 @@ public class MovementSM : StateMachine
     public Attack2 groundAtk2;
     [HideInInspector]
     public Attack3 groundAtk3;
+    [HideInInspector]
+    public Dashing dashState;
 
     [Header("Player Setting")]
     public Rigidbody2D rb;
@@ -49,6 +51,13 @@ public class MovementSM : StateMachine
     [Header("Attack Setting")]
     public bool isAttacking;
     public bool atkKeyPressed;
+
+    [Header("Dash Setting")]
+    public bool isDashing = false;
+    public float dashCoolDown = 0.5f;
+    public float dashTime = 0.3f;
+    public bool canDash = true;
+    public float dashForce = 20f;
     private void Awake()
     {
         idleState = new Idle(this);
@@ -58,6 +67,7 @@ public class MovementSM : StateMachine
         groundAtk1 = new Attack1(this);
         groundAtk2 = new Attack2(this);
         groundAtk3 = new Attack3(this);
+        dashState= new Dashing(this);
     }
     protected override void StartSM()
     {
@@ -72,10 +82,11 @@ public class MovementSM : StateMachine
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         atkKeyPressed = Input.GetMouseButtonDown(0);
-
-        if (animIsStarting)
+        //Debug.Log(canDash);
+        if (Input.GetKey(KeyCode.K) && canDash)
         {
-            animTime += Time.deltaTime;
+            this.ChangeState(dashState);
+            //Debug.Log("Dash");
         }
         //Debug.Log("horizontalInput "+ horizontalInput);
         //Debug.Log("velocity " + rb.velocity);

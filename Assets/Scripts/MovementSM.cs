@@ -21,20 +21,23 @@ public class MovementSM : StateMachine
     public Attack3 groundAtk3;
     [HideInInspector]
     public Dashing dashState;
+    [HideInInspector]
+    public GetHit getHitState;
 
     [Header("Player Setting")]
     public Rigidbody2D rb;
     public BoxCollider2D boxcollider2D;
     public float horizontalInput;   
     public bool isFacingRight = true;
+    public bool isInvisible = false;
+    public float invisibleTime = 0.5f;
 
 
     [Header("Animation Setting")]
     public Animator animator;
     public SpriteRenderer renderer;
     //public AnimatorStateInfo animStateInfo;
-    public bool animIsStarting = false;
-    public float animTime;
+ 
 
 
     [Header("Move Setting")]
@@ -58,6 +61,12 @@ public class MovementSM : StateMachine
     public float dashTime = 0.3f;
     public bool canDash = true;
     public float dashForce = 20f;
+
+    [Header("GetHit Setting")]
+    public bool isGettingHit;
+    public float timeRecover = 0.3f;
+    public float hitForce = 50f;
+
     private void Awake()
     {
         idleState = new Idle(this);
@@ -68,6 +77,7 @@ public class MovementSM : StateMachine
         groundAtk2 = new Attack2(this);
         groundAtk3 = new Attack3(this);
         dashState= new Dashing(this);
+        getHitState = new GetHit(this);
     }
     protected override void StartSM()
     {
@@ -83,9 +93,14 @@ public class MovementSM : StateMachine
         horizontalInput = Input.GetAxisRaw("Horizontal");
         atkKeyPressed = Input.GetMouseButtonDown(0);
         //Debug.Log(canDash);
-        if (Input.GetKey(KeyCode.K) && canDash)
+        if (Input.GetKey(KeyCode.K) && canDash && !isGettingHit)
         {
             this.ChangeState(dashState);
+            //Debug.Log("Dash");
+        }
+        if (Input.GetKey(KeyCode.L) && !isGettingHit)
+        {
+            this.ChangeState(getHitState);
             //Debug.Log("Dash");
         }
         //Debug.Log("horizontalInput "+ horizontalInput);
@@ -103,13 +118,11 @@ public class MovementSM : StateMachine
 
     public void OnAnimStart()
     {
-        animTime = 0;
-        animIsStarting = true;
+        
     }
     public void OnAnimEnd()
     {
-        animTime = 0;
-        animIsStarting= false;
+        
     }
     //protected override BaseState GetInitState()
     //{

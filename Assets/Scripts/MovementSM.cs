@@ -23,6 +23,10 @@ public class MovementSM : StateMachine
     public Dashing dashState;
     [HideInInspector]
     public GetHit getHitState;
+    [HideInInspector]
+    public AirAttack airAtkState;
+    [HideInInspector]
+    public HeavyAtk heavyAtkState;
 
     [Header("Player Setting")]
     public Rigidbody2D rb;
@@ -31,6 +35,7 @@ public class MovementSM : StateMachine
     public bool isFacingRight = true;
     public bool isInvisible = false;
     public float invisibleTime = 0.5f;
+    public PlayerCombatCtrl combatCtrl;
 
 
     [Header("Animation Setting")]
@@ -67,6 +72,10 @@ public class MovementSM : StateMachine
     public float timeRecover = 0.3f;
     public float hitForce = 50f;
 
+
+    [Header("AirAtk Setting")]
+    public bool canAirAtk = true;
+    public float airAtkCooldown = 1;
     private void Awake()
     {
         idleState = new Idle(this);
@@ -78,6 +87,8 @@ public class MovementSM : StateMachine
         groundAtk3 = new Attack3(this);
         dashState= new Dashing(this);
         getHitState = new GetHit(this);
+        airAtkState = new AirAttack(this);
+        heavyAtkState = new HeavyAtk(this);
     }
     protected override void StartSM()
     {
@@ -87,18 +98,23 @@ public class MovementSM : StateMachine
         animator=GetComponent<Animator>();
         renderer=GetComponent<SpriteRenderer>();
         this.ChangeState(idleState);
+        combatCtrl = GetComponent<PlayerCombatCtrl>();
     }
     protected override void UpdateSM()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         atkKeyPressed = Input.GetMouseButtonDown(0);
+        if(isGettingHit)
+        {
+            return;
+        }
         //Debug.Log(canDash);
-        if (Input.GetKey(KeyCode.K) && canDash && !isGettingHit)
+        if (Input.GetKey(KeyCode.LeftShift) && canDash)
         {
             this.ChangeState(dashState);
             //Debug.Log("Dash");
         }
-        if (Input.GetKey(KeyCode.L) && !isGettingHit)
+        if (Input.GetKey(KeyCode.L))
         {
             this.ChangeState(getHitState);
             //Debug.Log("Dash");

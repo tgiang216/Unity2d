@@ -12,7 +12,7 @@ public class Attack2 : BaseState
     private float duration;
     private float time;
     //private float horizontalInput;
-    public Attack2(MovementSM stateMachine) : base("Attacking", stateMachine)
+    public Attack2(MovementSM stateMachine) : base("Attack2", stateMachine)
     {
         sm = (MovementSM)stateMachine;
     }
@@ -25,7 +25,7 @@ public class Attack2 : BaseState
         atkIndex = 2;
         sm.isAttacking = true;
         sm.animator.Play("PlayerAtk2");
-        duration = sm.GetClipLenght("PlayerAtk1");
+        duration = sm.GetClipLenght("PlayerAtk2");
         //sm.animStateInfo = sm.animator.GetCurrentAnimatorStateInfo(0);
     }
     public override void UpdateLogic()
@@ -36,7 +36,7 @@ public class Attack2 : BaseState
         {
             if (nextAtk)
             {
-                sm.ChangeState(sm.groundAtk3);
+                sm.ChangeState(sm.heavyAtkState);
             }
             else
             {

@@ -50,6 +50,10 @@ public class Jumping : BaseState
         {
             sm.ChangeState(sm.fallState); 
         }
+        if (Input.GetMouseButton(0) && sm.canAirAtk)
+        {
+            sm.ChangeState(sm.airAtkState);
+        }
     }
     public override void UpdatePhysics()
     {

@@ -6,15 +6,13 @@ public class PlayerCombatCtrl : MonoBehaviour
 {
     [SerializeField] float damage = 10;
     [SerializeField] GameObject hitPrefab;
-    
-    void Start()
-    {
-        
-    }
+    [SerializeField] GameObject thunderPrefab;
+    [SerializeField] Transform thunderPos;
+    [SerializeField] float thunderTime = 0.4f;
 
-    // Update is called once per frame
-    void Update()
+    public void CreateThunder()
     {
-        
+        GameObject effect = Instantiate(thunderPrefab,thunderPos.position,thunderPos.rotation);
+        Destroy(effect, thunderTime);
     }
 }

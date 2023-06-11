@@ -24,7 +24,12 @@ public class Falling : BaseState
         {
             sm.ChangeState(sm.idleState);
         }
-       
+
+        //air atk transistion
+        if (Input.GetMouseButton(0) && sm.canAirAtk)
+        {
+            sm.ChangeState(sm.airAtkState);
+        }
     }
 
     public override void UpdatePhysics()

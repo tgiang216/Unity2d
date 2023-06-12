@@ -19,6 +19,7 @@ public class AirAttack : BaseState
         sm.animator.Play("PlayerAtk1");
         animTime = sm.GetClipLenght("PlayerAtk1");
         sm.StartCoroutine(AirAtkCoolDown());
+        sm.isAttacking = true;
     }
     public override void UpdateLogic()
     {
@@ -30,7 +31,7 @@ public class AirAttack : BaseState
     }
     public override void Exit()
     {
-
+        sm.isAttacking = false;
     }
     private IEnumerator AirAtkCoolDown()
     {

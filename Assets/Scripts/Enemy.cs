@@ -48,6 +48,7 @@ public class Enemy : MonoBehaviour
         Vector3 hitPos = positon;
         GameObject hit = Instantiate(effect, hitPos, Quaternion.identity);
         Destroy(hit, 0.3f);
+
     }
     private void OnTriggerStay2D(Collider2D collision)
     {

@@ -13,18 +13,23 @@ public class EnemyStateCtrl : StateMachine
     [Header("Enemy Setting")]
     public Animator animator;
     public Transform playerPos;
-    public bool isPlayerInRange;
+    public bool isPlayerInRange = false;
     public float rangeToSeePlayer;
     public float distanceToPlayer;
 
     [Header("Move Setting")]
+    public bool isMoving;
     public float moveSpeed;
-    public Transform targetToMove;
+    public Vector3 targetToMove;
     //public List<Transform> pathPoint;
 
     [Header("Move Around Setting")]
     public bool isMovingAround;
-    public Transform pointToAround;
+    public Vector3 pointToAround;
+    public float moveRange;
+
+    [Header("Idle Setting")]
+    public float inIdleStateTime;
 
 
     private void Awake()
@@ -35,8 +40,9 @@ public class EnemyStateCtrl : StateMachine
     protected override void StartSM()
     {
         animator= GetComponent<Animator>();
-        playerPos = GameObject.FindGameObjectWithTag("Player").transform;
-        pointToAround = transform;
+        //playerPos = GameObject.FindGameObjectWithTag("Player").transform;
+        isMovingAround = true;
+        pointToAround = transform.position;
         this.ChangeState(idleState);
     }
 

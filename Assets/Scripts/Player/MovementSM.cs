@@ -40,7 +40,7 @@ public class MovementSM : StateMachine
 
     [Header("Animation Setting")]
     public Animator animator;
-    public SpriteRenderer renderer;
+    //public SpriteRenderer renderer;
     //public AnimatorStateInfo animStateInfo;
  
 
@@ -96,7 +96,7 @@ public class MovementSM : StateMachine
         rb=GetComponent<Rigidbody2D>();
         boxcollider2D=GetComponent<BoxCollider2D>();
         animator=GetComponent<Animator>();
-        renderer=GetComponent<SpriteRenderer>();
+        //renderer=GetComponent<SpriteRenderer>();
         this.ChangeState(idleState);
         combatCtrl = GetComponent<PlayerCombatCtrl>();
     }
@@ -132,19 +132,7 @@ public class MovementSM : StateMachine
         boxcollider2D.bounds.size, 0f, Vector2.down, 0.05f, jumpAbleGround);
     }
 
-    public void OnAnimStart()
-    {
-        
-    }
-    public void OnAnimEnd()
-    {
-        
-    }
-    //protected override BaseState GetInitState()
-    //{
-    //    Debug.Log("Innit state");
-    //    return idleState;
-    //}
+
     public float GetClipLenght(string name)
     {
         AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;

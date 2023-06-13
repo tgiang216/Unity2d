@@ -9,7 +9,6 @@ public class Attack1 : BaseState
 {
     private MovementSM sm;
     private bool nextAtk = false;
-    private int atkIndex;
     private float duration;
     private float time;
     //private float horizontalInput;
@@ -24,7 +23,6 @@ public class Attack1 : BaseState
         sm.rb.velocity = Vector2.zero;
         nextAtk = false;
         time = 0;
-        atkIndex = 1;
         sm.isAttacking = true;
         sm.animator.Play("PlayerAtk1");
         duration = sm.GetClipLenght("PlayerAtk1");

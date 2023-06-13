@@ -23,7 +23,7 @@ public class StateMachine : MonoBehaviour
             currentState.UpdateLogic(); 
         }
         UpdateSM();
-        Debug.Log("State : " + currentState.name);
+        //Debug.Log("State : " + currentState.name);
     }
 
     void FixedUpdate()

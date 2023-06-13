@@ -8,7 +8,6 @@ public class Attack2 : BaseState
 {
     private MovementSM sm;
     private bool nextAtk = false;
-    private int atkIndex;
     private float duration;
     private float time;
     //private float horizontalInput;
@@ -22,7 +21,6 @@ public class Attack2 : BaseState
         base.Enter();
         nextAtk = false;
         time = 0;
-        atkIndex = 2;
         sm.isAttacking = true;
         sm.animator.Play("PlayerAtk2");
         duration = sm.GetClipLenght("PlayerAtk2");

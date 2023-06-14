@@ -44,7 +44,7 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damage , Vector2 positon)
     {
-        Debug.Log("Get hit ! 3");
+       // Debug.Log("Get hit ! 3");
         Vector3 hitPos = positon;
         GameObject hit = Instantiate(effect, hitPos, Quaternion.identity);
         Destroy(hit, 0.3f);

@@ -7,7 +7,9 @@ public class EnemyMove : BaseState
 {
     private EnemyStateCtrl sm;
     private float distance;
+    private Vector3 currentPos;
     private Tween tween;
+    
     public EnemyMove(EnemyStateCtrl state) : base("EnemyMove", state)
     {
         sm = (EnemyStateCtrl)state;
@@ -16,23 +18,35 @@ public class EnemyMove : BaseState
 
     public override void Enter()
     {
-        
+        Debug.Log("Enter Move state enemy");
+        sm.animator.Play("BoarEnemyWalk");
+        currentPos = sm.transform.position;
         distance = Mathf.Abs(sm.transform.position.x - sm.targetToMove.x);
         sm.isMoving= true;
         if (sm.isMovingAround)
-        {
-            sm.targetToMove = new Vector3(Random.Range(sm.pointToAround.x - sm.moveRange, sm.pointToAround.x + sm.moveRange), 0);
-            tween = sm.transform.DOMoveX(sm.targetToMove.x, 3f, false).OnComplete(OnMoveComplete);
+        {           
+            if(currentPos.x < sm.targetToMove.x)
+            {
+                sm.isFacinRight = true;
+                sm.transform.localScale = new Vector3(-1, 1, 1);
+            }
+            else
+            {
+                sm.isFacinRight = false;
+                sm.transform.localScale = new Vector3(1, 1, 1);
+            }
+            tween =  sm.rb.DOMoveX(sm.targetToMove.x,3f, false).OnComplete(OnMoveComplete);
         }
 
     }
     public override void UpdateLogic()
     {
-
-        if (sm.isMovingAround && !sm.isMoving)
+        if (sm.IsPlayerInRange)
         {
-            sm.ChangeState(sm.idleState);
+            if(tween.IsPlaying()) tween.Kill();
+            sm.ChangeState(sm.foundState);
         }
+        
     }
     public override void UpdatePhysics()
     {
@@ -44,7 +58,16 @@ public class EnemyMove : BaseState
     }
     private void OnMoveComplete()
     {
+        if (sm.IsPlayerInRange)
+        {
+            sm.ChangeState(sm.idleState);
+        }
         sm.isMoving = false;
+    }
+
+    private void MoveLeft_Right()
+    {
+        
     }
 }
 

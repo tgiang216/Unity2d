@@ -13,7 +13,7 @@ public class Moving : BaseState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("Enter Move state");
+        //Debug.Log("Enter Move state");
         //sm.horizontalInput = 0f;
         //sm.animator.SetTrigger("Running");
         sm.animator.Play("PlayerRun");

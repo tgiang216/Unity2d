@@ -15,7 +15,7 @@ public class Falling : BaseState
         base.Enter();
         sm.rb.gravityScale = 10f;
         sm.animator.Play("PlayerFall");
-        Debug.Log("Enter fall state");
+        //Debug.Log("Enter fall state");
     }
     public override void UpdateLogic()
     {

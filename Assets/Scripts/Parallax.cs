@@ -5,24 +5,24 @@ using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
-    public Transform camera;
+    public Transform cam;
     public float relative = 0.3f;
     public bool lockY = false;
 
     private void Start()
     {
-        camera = FindObjectOfType<CinemachineVirtualCamera>().transform;
+        cam = FindObjectOfType<CinemachineVirtualCamera>().transform;
     }
     // Update is called once per frame
     void Update()
     {
         if(lockY)
         {
-            transform.position = new Vector2(camera.position.x*relative, transform.position.y);
+            transform.position = new Vector2(cam.position.x*relative, transform.position.y);
         }
         else
         {
-            transform.position = new Vector2(camera.position.x * relative, camera.position.y* relative);
+            transform.position = new Vector2(cam.position.x * relative, cam.position.y* relative);
 
         }
     }

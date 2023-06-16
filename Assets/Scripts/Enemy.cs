@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour
        // Debug.Log("Get hit ! 3");
         Vector3 hitPos = positon;
         GameObject hit = Instantiate(effect, hitPos, Quaternion.identity);
-        Destroy(hit, 0.3f);
+        Destroy(hit, 0.2f);
 
     }
     private void OnTriggerStay2D(Collider2D collision)

@@ -4,54 +4,37 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Enemy Setting")]
+    public float maxHealth = 200f;
+    private float curentHealth;
+    public EnemyStateCtrl stateCtrl;
     public GameObject effect;
-           
-    private void OnCollisionEnter2D(Collision2D collision)
+    public HealBarCtrl healthBar;
+
+    private void Start()
     {
-        //Debug.Log("Get hit !!!!!!!");
-        if (collision.collider.CompareTag("PlayerSword"))
-        {
-            Vector3 hitPos = collision.transform.position;
-            GameObject hit = Instantiate(effect, hitPos, Quaternion.identity);
-            Destroy(hit, 2f);
-
-            Debug.Log("Get hit !");
-        }
+        healthBar.MaxValue = maxHealth;
+        curentHealth = maxHealth;
+        stateCtrl= GetComponent<EnemyStateCtrl>();
     }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "PlayerSword")
-        {
-            Vector3 hitPos = collision.transform.position;
-            GameObject hit = Instantiate(effect, hitPos, Quaternion.identity);
-            Destroy(hit, 2f);
-
-            Debug.Log("Get hit !");
-        }
-    }
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-       
-    //    if (collision.CompareTag("PlayerSword"))
-    //    {
-    //        Debug.Log("Get hit ! 3");
-    //        Vector3 hitPos = collision.transform.position;
-    //        GameObject hit = Instantiate(effect, hitPos, Quaternion.identity);
-    //        Destroy(hit, 0.3f);
-    //    }
-    //}
-
     public void TakeDamage(float damage , Vector2 positon)
     {
-       // Debug.Log("Get hit ! 3");
+        
+        curentHealth -= damage;
+        Debug.Log("curentHealth " + curentHealth);
+        healthBar.SetHealthBar(curentHealth);
         Vector3 hitPos = positon;
         GameObject hit = Instantiate(effect, hitPos, Quaternion.identity);
         Destroy(hit, 0.2f);
+        if(curentHealth <= 0)
+        {
+            Die();
+        }
 
     }
-    private void OnTriggerStay2D(Collider2D collision)
+    public void Die()
     {
-       
+        Debug.Log("Boar die");
+        Destroy(gameObject);
     }
 }

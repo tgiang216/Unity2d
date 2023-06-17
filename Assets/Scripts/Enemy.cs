@@ -15,7 +15,6 @@ public class Enemy : MonoBehaviour
     {
         healthBar.MaxValue = maxHealth;
         curentHealth = maxHealth;
-        sm= GetComponent<EnemyStateCtrl>();
     }
     public void TakeDamage(float damage , Vector2 positon)
     {

@@ -306,7 +306,7 @@ Transform:
   m_Children:
   - {fileID: 2828988738373481984}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5757291935678448912
 SpriteRenderer:
@@ -465,8 +465,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b33226327ff3fb647a1453397e9bd30d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 200
-  stateCtrl: {fileID: 475708047259264319}
+  maxHealth: 100
+  sm: {fileID: 0}
   effect: {fileID: 6888962865185006346, guid: 11d07ecc7fc76be4295b3f1c4443c162, type: 3}
   healthBar: {fileID: 5627259694769836901}
 --- !u!114 &475708047259264319

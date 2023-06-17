@@ -21,6 +21,7 @@ public class BeeHiveCtrl : MonoBehaviour
     private void Start()
     {
         timer = 0;
+        beeList= new List<GameObject>();
     }
 
     private void Update()
@@ -39,6 +40,7 @@ public class BeeHiveCtrl : MonoBehaviour
         GameObject bee = Instantiate(beePrefab, transform.position, transform.rotation);
         bee.GetComponent<BeeStateCtrl>().beeHive = this;
         beeList.Add(bee);
+        Debug.Log("Bee : " + beeList.Count);
         foreach(var b in beeList)
         {
             if(b == null) beeList.Remove(b);
@@ -57,8 +59,8 @@ public class BeeHiveCtrl : MonoBehaviour
         return randomPosition;
     }
 
-    public void OnABeeDeath()
+    public void OnABeeDeath(GameObject bee)
     {
-
+        beeList.Remove(bee);
     }
 }

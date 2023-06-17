@@ -190,7 +190,6 @@ MonoBehaviour:
   isFoundPlayer: 0
   timeToPrepair: 1
   isAttacking: 0
-  isChasing: 0
   chasingSpeed: 0
 --- !u!95 &5834271683630146037
 Animator:
@@ -225,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b33226327ff3fb647a1453397e9bd30d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 70
   sm: {fileID: 0}
   effect: {fileID: 6888962865185006346, guid: 11d07ecc7fc76be4295b3f1c4443c162, type: 3}
   healthBar: {fileID: 4339501225450380233}

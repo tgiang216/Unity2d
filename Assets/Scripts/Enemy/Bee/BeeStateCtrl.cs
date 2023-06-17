@@ -76,4 +76,11 @@ public class BeeStateCtrl : StateMachine
         Gizmos.color = Color.red;
         if(pointToAround != null) Gizmos.DrawSphere(pointToAround.position, 0.2f);
     }
+
+    private void OnDestroy()
+    {if(beeHive != null)
+        {
+            beeHive.OnABeeDeath(this.gameObject);
+        }       
+    }
 }

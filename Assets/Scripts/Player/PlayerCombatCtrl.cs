@@ -44,7 +44,7 @@ public class PlayerCombatCtrl : MonoBehaviour
         RaycastHit2D[] rays = Physics2D.CircleCastAll(hitBox.position, 0.3f, Vector2.right, 0f, layer);
         foreach (RaycastHit2D ray in rays)
         {
-            if (ray.collider.tag != "Enemy") return;
+            if (ray.collider.tag != "Enemy") continue;
             if (hitime >= maxHit)
             {
                 StartCoroutine(SlowMotion(timeSlowMotion));

@@ -23,11 +23,7 @@ public class BeeIdle : BaseState
         timer += Time.deltaTime;
         if (timer > sm.inIdleStateTime)
         {
-            Vector2 randomDirection = Random.insideUnitCircle.normalized;
-            randomDirection.y = Mathf.Clamp(randomDirection.y, -Mathf.Sqrt(3) / 2, 0f); 
-            Vector2 randomPoint = (Vector2)sm.pointToAround.position + randomDirection * sm.moveRange;
-
-            sm.targetToMove = randomPoint;
+            
             sm.ChangeState(sm.moveState);
         }
     }

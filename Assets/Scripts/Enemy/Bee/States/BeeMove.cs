@@ -21,7 +21,7 @@ public class BeeMove : BaseState
         currentPos = sm.transform.position;
         distance = Mathf.Abs(sm.transform.position.x - sm.targetToMove.x);
         sm.isMoving = true;
-
+        sm.targetToMove = GetTarGetToMove();
         if (currentPos.x < sm.targetToMove.x)
         {
             sm.isFacinRight = true;
@@ -41,13 +41,34 @@ public class BeeMove : BaseState
     }
     private void OnMoveComplete()
     {
-
+        if (sm.isFoundPlayer) sm.ChangeState(sm.atkState);
         sm.ChangeState(sm.idleState);
         sm.isMoving = false;
     }
 
-    private void MoveLeft_Right()
+    private Vector3 GetTarGetToMove()
     {
+        if (sm.isFoundPlayer)
+        {
+            return GetAttackPos(sm.player.position, 1f, Random.Range(10, 15));
+        }
 
+        Vector2 randomDirection = Random.insideUnitCircle.normalized;
+        randomDirection.y = Mathf.Clamp(randomDirection.y, -Mathf.Sqrt(3) / 2, 0f);
+        Vector2 randomPoint = (Vector2)sm.pointToAround.position + randomDirection * sm.moveRange;
+
+        return randomPoint;
+    }
+
+    Vector3 GetAttackPos(Vector3 center, float radius, float angleInHours)
+    {
+        // Chat GPT
+        float angleInRadians = Mathf.Deg2Rad * ((angleInHours - 3f) * 30f);
+
+        float x = center.x + radius * Mathf.Cos(angleInRadians);
+        float y = center.y;
+        float z = center.z + radius * Mathf.Sin(angleInRadians);
+
+        return new Vector3(x, y, z);
     }
 }

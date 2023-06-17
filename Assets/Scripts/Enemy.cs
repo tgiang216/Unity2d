@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     [Header("Enemy Setting")]
     public float maxHealth = 200f;
     private float curentHealth;
-    public EnemyStateCtrl stateCtrl;
+    public StateMachine sm;
     public GameObject effect;
     public HealBarCtrl healthBar;
 
@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
     {
         healthBar.MaxValue = maxHealth;
         curentHealth = maxHealth;
-        stateCtrl= GetComponent<EnemyStateCtrl>();
+        sm= GetComponent<EnemyStateCtrl>();
     }
     public void TakeDamage(float damage , Vector2 positon)
     {
@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
     }
     public void Die()
     {
-        Debug.Log("Boar die");
+        Debug.Log(gameObject.name + " Die !");
         Destroy(gameObject);
     }
 }

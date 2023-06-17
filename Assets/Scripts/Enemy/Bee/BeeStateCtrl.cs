@@ -11,16 +11,19 @@ public class BeeStateCtrl : StateMachine
     [HideInInspector]
     public BeeSeePlayer foundState;
     [HideInInspector]
-    public BeeChasing chasingState;
+    public BeeAttack atkState;
+    [HideInInspector]
+    public BeeDeath deathState;
 
 
-    [Header("Enemy Setting")]
+    [Header("Enemy bee Setting")]
     public Animator animator;
     public Transform player;
     public float rangeToSeePlayer;
     public float distanceToPlayer;
     public Rigidbody2D rb;
     public bool isFacinRight = false;
+    public BeeHiveCtrl beeHive;
 
     [Header("Move Setting")]
     public bool isMoving;
@@ -41,24 +44,27 @@ public class BeeStateCtrl : StateMachine
 
     [Header("Attack Setting")]
     public bool isAttacking;
-
-    [Header("Chasing Setting")]
-    public bool isChasing;
     public float chasingSpeed;
     private void Awake()
     {
         idleState= new BeeIdle(this);
         moveState= new BeeMove(this);
         foundState= new BeeSeePlayer(this);
-        chasingState= new BeeChasing(this);
+        atkState= new BeeAttack(this);
+        deathState = new BeeDeath(this);
     }
     protected override void StartSM()
     {
         base.StartSM();
         rb=GetComponent<Rigidbody2D>();
         animator= GetComponent<Animator>();
-        //pointToAround = transform.position;
-        this.ChangeState(idleState);
+        pointToAround = transform;
+        this.ChangeState(idleState);       
+    }
+    private void LateUpdate()
+    {
+        
+        
     }
 
     protected override void UpdateSM()
@@ -68,6 +74,6 @@ public class BeeStateCtrl : StateMachine
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(pointToAround.position, 0.2f);
+        if(pointToAround != null) Gizmos.DrawSphere(pointToAround.position, 0.2f);
     }
 }

@@ -13,7 +13,7 @@ public class EnemySeePlayer : BaseState
     }
     public override void Enter()
     {
-        Debug.Log("Found Player");
+        //Debug.Log("Found Player");
         sm.isFoundPlayer = true;
         time = 0;
         FaceToPlayer();

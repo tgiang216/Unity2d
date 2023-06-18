@@ -21,6 +21,7 @@ public class BeeIdle : BaseState
     public override void UpdatePhysics()
     {
         timer += Time.deltaTime;
+        if(sm.isAttacking) { sm.inIdleStateTime = 1f; }
         if (timer > sm.inIdleStateTime)
         {
             

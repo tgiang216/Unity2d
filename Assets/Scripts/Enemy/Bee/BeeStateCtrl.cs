@@ -14,6 +14,8 @@ public class BeeStateCtrl : StateMachine
     public BeeAttack atkState;
     [HideInInspector]
     public BeeDeath deathState;
+    [HideInInspector]
+    public BeeGetHit gethitState;
 
 
     [Header("Enemy bee Setting")]
@@ -44,7 +46,11 @@ public class BeeStateCtrl : StateMachine
 
     [Header("Attack Setting")]
     public bool isAttacking;
-    public float chasingSpeed;
+    public float atkRange;
+
+    [Header("Get hit setting")]
+    public float hitRecoverTime;
+    public bool isGettingHit;
     private void Awake()
     {
         idleState= new BeeIdle(this);
@@ -52,6 +58,7 @@ public class BeeStateCtrl : StateMachine
         foundState= new BeeSeePlayer(this);
         atkState= new BeeAttack(this);
         deathState = new BeeDeath(this);
+        gethitState = new BeeGetHit(this);
     }
     protected override void StartSM()
     {
@@ -59,17 +66,31 @@ public class BeeStateCtrl : StateMachine
         rb=GetComponent<Rigidbody2D>();
         animator= GetComponent<Animator>();
         pointToAround = transform;
+        player = GameObject.FindWithTag("Player").transform;
         this.ChangeState(idleState);       
     }
-    private void LateUpdate()
-    {
-        
-        
-    }
+    
 
     protected override void UpdateSM()
     {
-        base.UpdateSM();
+        
+    }
+    private void LateUpdate()
+    {
+        if (beeHive == null) return;
+        if (isFoundPlayer) return;
+        if (beeHive.IsPlayerInRange && !isFoundPlayer)
+        {
+            this.ChangeState(foundState);
+        }
+        else
+        if(!beeHive.IsPlayerInRange)
+        {
+            this.ChangeState(idleState);
+            isFoundPlayer = false;
+        }
+            
+
     }
     private void OnDrawGizmos()
     {

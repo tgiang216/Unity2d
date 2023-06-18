@@ -16,7 +16,7 @@ public class EnemyChasing : BaseState
 
     public override void Enter()
     {
-        Debug.Log("Enter enemy chasing ");
+        //Debug.Log("Enter enemy chasing ");
         sm.isChasing = true;
         target = sm.player.position;
         FaceToPlayer();

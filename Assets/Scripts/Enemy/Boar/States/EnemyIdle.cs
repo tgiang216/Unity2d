@@ -13,7 +13,7 @@ public class EnemyIdle : BaseState
 
     public override void Enter()
     {
-        Debug.Log("Enter IDLe state enemy");
+        //Debug.Log("Enter IDLe state enemy");
         sm.animator.Play("BoarEnemyIdle");
         timer = 0;
         sm.inIdleStateTime = Random.Range(2f, 5f);

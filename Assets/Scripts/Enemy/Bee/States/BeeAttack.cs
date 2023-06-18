@@ -12,11 +12,14 @@ public class BeeAttack : BaseState
     }
     public override void Enter()
     {
-
+        Debug.Log("Bee Attacking");
+        sm.isAttacking= true;
+        sm.animator.Play("BeeAtk");
     }
 
     public override void Exit()
     {
-
+        sm.isAttacking = false;
+        sm.isFoundPlayer= false;
     }
 }

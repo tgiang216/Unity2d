@@ -50,7 +50,7 @@ public class BeeMove : BaseState
     {
         if (sm.isFoundPlayer)
         {
-            return GetAttackPos(sm.player.position, 1f, Random.Range(10, 15));
+            return GetAttackPos(sm.player.position, sm.atkRange);
         }
 
         Vector2 randomDirection = Random.insideUnitCircle.normalized;
@@ -60,15 +60,13 @@ public class BeeMove : BaseState
         return randomPoint;
     }
 
-    Vector3 GetAttackPos(Vector3 center, float radius, float angleInHours)
+    Vector3 GetAttackPos(Vector3 center, float radius)
     {
         // Chat GPT
-        float angleInRadians = Mathf.Deg2Rad * ((angleInHours - 3f) * 30f);
-
-        float x = center.x + radius * Mathf.Cos(angleInRadians);
-        float y = center.y;
-        float z = center.z + radius * Mathf.Sin(angleInRadians);
-
+        float randomAngle = Random.Range(0f, Mathf.PI);
+        float x = center.x + radius * Mathf.Cos(randomAngle);
+        float y = center.y + radius * Mathf.Sin(randomAngle);
+        float z = center.z;
         return new Vector3(x, y, z);
     }
 }

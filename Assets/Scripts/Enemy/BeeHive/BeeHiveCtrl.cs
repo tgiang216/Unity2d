@@ -13,6 +13,15 @@ public class BeeHiveCtrl : MonoBehaviour
     [SerializeField]
     private float radius;
 
+    [SerializeField]
+    private Transform player;
+    [SerializeField]
+    public bool IsPlayerInRange => Vector3.Distance(player.position, transform.position) <= range;
+    [SerializeField]
+    private float range;
+    [SerializeField]
+    private float DistaceToPlayer => Vector3.Distance(player.position, transform.position);
+
     private float timer = 0;
 
     [SerializeField]
@@ -22,11 +31,12 @@ public class BeeHiveCtrl : MonoBehaviour
     {
         timer = 0;
         beeList= new List<GameObject>();
+        player = GameObject.FindWithTag("Player").transform;
     }
 
     private void Update()
     {
-        if (beeList.Count >= 5) return;
+        if (beeList.Count >= maxBee) return;
         timer += Time.deltaTime;
         if(timer > bornBeeCooldown )
         {
@@ -40,16 +50,12 @@ public class BeeHiveCtrl : MonoBehaviour
         GameObject bee = Instantiate(beePrefab, transform.position, transform.rotation);
         bee.GetComponent<BeeStateCtrl>().beeHive = this;
         beeList.Add(bee);
-        Debug.Log("Bee : " + beeList.Count);
+        //Debug.Log("Bee : " + beeList.Count);
         foreach(var b in beeList)
         {
             if(b == null) beeList.Remove(b);
         }
-        //BeeStateCtrl beectrl = bee.GetComponent<BeeStateCtrl>();
-        //if(beectrl != null )
-        //{
-        //    beectrl.ChangeState(beectrl.moveState);
-        //}
+        
     }
 
     private Vector3 GetMakeBeePos()
@@ -58,6 +64,8 @@ public class BeeHiveCtrl : MonoBehaviour
         Vector3 randomPosition = transform.position + randomDirection * radius;
         return randomPosition;
     }
+
+
 
     public void OnABeeDeath(GameObject bee)
     {

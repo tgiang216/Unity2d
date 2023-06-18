@@ -13,12 +13,17 @@ public class BeeSeePlayer : BaseState
     }
     public override void Enter()
     {
+        Debug.Log("Found Player");
         sm.isFoundPlayer = true;
     }
     public override void UpdateLogic()
     {
         FaceToPlayer();
         timer += Time.deltaTime;
+        if(timer >= sm.timeToPrepair) 
+        {
+            sm.ChangeState(sm.moveState);
+        }
     }
     public override void Exit()
     {

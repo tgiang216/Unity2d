@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 
 public class BeeStateCtrl : StateMachine
@@ -34,7 +35,7 @@ public class BeeStateCtrl : StateMachine
     //public List<Transform> pathPoint;
 
     [Header("Move Around Setting")]
-    public Transform pointToAround;
+    public Transform pointToAround = null;
     public float moveRange;
 
     [Header("Idle Setting")]
@@ -64,8 +65,12 @@ public class BeeStateCtrl : StateMachine
     {
         base.StartSM();
         rb=GetComponent<Rigidbody2D>();
-        animator= GetComponent<Animator>();
-        pointToAround = transform;
+        animator= GetComponent<Animator>();    
+        if(beeHive!=null)
+        {
+            pointToAround = beeHive.transform;
+        }else
+            pointToAround = transform;
         player = GameObject.FindWithTag("Player").transform;
         this.ChangeState(idleState);       
     }
@@ -78,18 +83,19 @@ public class BeeStateCtrl : StateMachine
     private void LateUpdate()
     {
         if (beeHive == null) return;
-        if (isFoundPlayer) return;
+        //if (isFoundPlayer) return;
         if (beeHive.IsPlayerInRange && !isFoundPlayer)
         {
             this.ChangeState(foundState);
+            return;
         }
-        else
-        if(!beeHive.IsPlayerInRange)
+
+        if (!beeHive.IsPlayerInRange)
         {
-            this.ChangeState(idleState);
             isFoundPlayer = false;
+            //this.ChangeState(idleState);
         }
-            
+
 
     }
     private void OnDrawGizmos()
@@ -103,5 +109,20 @@ public class BeeStateCtrl : StateMachine
         {
             beeHive.OnABeeDeath(this.gameObject);
         }       
+    }
+
+    public float GetClipLenght(string name)
+    {
+        AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
+
+        foreach (AnimationClip clip in clips)
+        {
+            if (clip.name == name)
+            {
+                //Debug.Log("Animation Length: " + clip.length);
+                return clip.length;
+            }
+        }
+        return 0;
     }
 }

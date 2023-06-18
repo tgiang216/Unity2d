@@ -209,6 +209,7 @@ GameObject:
   - component: {fileID: 6328848788288987463}
   - component: {fileID: 3539841915671616906}
   - component: {fileID: 7536853665801508378}
+  - component: {fileID: -4793266621799940592}
   m_Layer: 7
   m_Name: Bee
   m_TagString: Enemy
@@ -272,7 +273,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 1839886150, guid: f22edbe472e17d44396c2cdd5fd76e32, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -384,7 +385,7 @@ MonoBehaviour:
   isFoundPlayer: 0
   timeToPrepair: 1
   isAttacking: 0
-  atkRange: 3.5
+  atkRange: 2.5
   hitRecoverTime: 0.2
   isGettingHit: 0
 --- !u!95 &3539841915671616906
@@ -421,9 +422,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 70
+  damage: 10
   sm: {fileID: 6328848788288987463}
   effect: {fileID: 6888962865185006346, guid: 11d07ecc7fc76be4295b3f1c4443c162, type: 3}
   healthBar: {fileID: 4181029804480239506}
+--- !u!114 &-4793266621799940592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5529819723442985346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0203ae4806127e4486f500f7260c827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
+  flashMaterial: {fileID: 2100000, guid: 1257ba937388c8648ae1d94835ec7cd7, type: 2}
+  duration: 0.01
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  isBlinking: 0
+  blinkduration: 0
 --- !u!1 &7128094576227954443
 GameObject:
   m_ObjectHideFlags: 0

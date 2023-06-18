@@ -6,13 +6,13 @@ using UnityEngine;
 
 public class Attack3 : BaseState
 {
-    private MovementSM sm;
+    private PlayerStatesCtrl sm;
     private float duration;
     private float time;
     //private float horizontalInput;
-    public Attack3(MovementSM stateMachine) : base("Attacking", stateMachine)
+    public Attack3(PlayerStatesCtrl stateMachine) : base("Attacking", stateMachine)
     {
-        sm = (MovementSM)stateMachine;
+        sm = (PlayerStatesCtrl)stateMachine;
     }
 
     public override void Enter()

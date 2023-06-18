@@ -10,8 +10,7 @@ public class BeeHiveCtrl : MonoBehaviour
     private GameObject beePrefab;
     [SerializeField]
     private List<GameObject> beeList;
-    [SerializeField]
-    private float radius;
+    
 
     [SerializeField]
     private Transform player;
@@ -57,14 +56,6 @@ public class BeeHiveCtrl : MonoBehaviour
         }
         
     }
-
-    private Vector3 GetMakeBeePos()
-    {
-        Vector3 randomDirection = Random.insideUnitSphere;
-        Vector3 randomPosition = transform.position + randomDirection * radius;
-        return randomPosition;
-    }
-
 
 
     public void OnABeeDeath(GameObject bee)

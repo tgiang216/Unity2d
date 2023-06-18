@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Dashing : BaseState
 {
-    private MovementSM sm;
+    private PlayerStatesCtrl sm;
     private float dashTime;
     private float gravityHold;
     private int dashDir;
     
     public Dashing(StateMachine state) : base("Dash", state)
     {
-        sm = (MovementSM)state;
+        sm = (PlayerStatesCtrl)state;
     }
     public override void Enter()
     {

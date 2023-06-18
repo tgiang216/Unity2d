@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class AirAttack : BaseState
 {
-    private MovementSM sm;
+    private PlayerStatesCtrl sm;
     private float time;
     private float animTime;
     public AirAttack(StateMachine state) : base("AirAttack", state)
     {
-        sm = (MovementSM)state;
+        sm = (PlayerStatesCtrl)state;
     }
     public override void Enter()
     {

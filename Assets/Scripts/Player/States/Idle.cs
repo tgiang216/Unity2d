@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Idle : BaseState
 {
-    private MovementSM sm;
+    private PlayerStatesCtrl sm;
     //private float horizontalInput;
-    public Idle(MovementSM stateMachine) : base("Idle", stateMachine) 
+    public Idle(PlayerStatesCtrl stateMachine) : base("Idle", stateMachine) 
     {
-        sm = (MovementSM)stateMachine;
+        sm = (PlayerStatesCtrl)stateMachine;
     }
 
     public override void Enter()

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 222286131997515318}
   - component: {fileID: 843731180120111708}
   - component: {fileID: 60911792749590843}
+  - component: {fileID: 4175646524858875848}
   m_Layer: 7
   m_Name: BeeHive
   m_TagString: Enemy
@@ -101,9 +102,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxBee: 5
-  beePrefab: {fileID: 1118091741142123836, guid: 2dad0fcd79c423842a129c91eeeb7633, type: 3}
+  beePrefab: {fileID: 5529819723442985346, guid: 2dad0fcd79c423842a129c91eeeb7633, type: 3}
   beeList: []
-  radius: 0
+  player: {fileID: 0}
+  range: 10
   bornBeeCooldown: 3
 --- !u!114 &843731180120111708
 MonoBehaviour:
@@ -118,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 150
+  damage: 0
   sm: {fileID: 0}
   effect: {fileID: 6888962865185006346, guid: 11d07ecc7fc76be4295b3f1c4443c162, type: 3}
   healthBar: {fileID: 6264915413456518592}
@@ -166,6 +169,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 2.5}
   m_EdgeRadius: 0
+--- !u!114 &4175646524858875848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5935100784333823861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0203ae4806127e4486f500f7260c827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
+  flashMaterial: {fileID: 2100000, guid: 1257ba937388c8648ae1d94835ec7cd7, type: 2}
+  duration: 0.01
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  isBlinking: 0
+  blinkduration: 0
 --- !u!1001 &8372667418020207755
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -59,13 +59,14 @@ public class EnemyStateCtrl : StateMachine
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         //playerPos = GameObject.FindGameObjectWithTag("Player").transform;
-        
+        player = GameObject.FindWithTag("Player").transform;
         pointToAround = transform.position;
         this.ChangeState(idleState);
     }
 
     protected override void UpdateSM()
     {
+        if (player == null) return;
         distanceToPlayer = Vector3.Distance(transform.position, player.position);
         if (targetToMove != null) return;
         if (IsPlayerInRange && !isFoundPlayer)

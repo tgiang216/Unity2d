@@ -7,14 +7,14 @@ using UnityEngine.UIElements;
 
 public class Attack1 : BaseState
 {
-    private MovementSM sm;
+    private PlayerStatesCtrl sm;
     private bool nextAtk = false;
     private float duration;
     private float time;
     //private float horizontalInput;
-    public Attack1(MovementSM stateMachine) : base("Attacking", stateMachine)
+    public Attack1(PlayerStatesCtrl stateMachine) : base("Attacking", stateMachine)
     {
-        sm = (MovementSM)stateMachine;
+        sm = (PlayerStatesCtrl)stateMachine;
     }
 
     public override void Enter()

@@ -13,7 +13,7 @@ public class BeeSeePlayer : BaseState
     }
     public override void Enter()
     {
-        Debug.Log("Found Player");
+        //Debug.Log("Found Player");
         sm.isFoundPlayer = true;
     }
     public override void UpdateLogic()
@@ -27,7 +27,10 @@ public class BeeSeePlayer : BaseState
     }
     public override void Exit()
     {
-
+        if (!sm.beeHive.IsPlayerInRange)
+        {
+            sm.isFoundPlayer= false;
+        }
     }
     private void FaceToPlayer()
     {

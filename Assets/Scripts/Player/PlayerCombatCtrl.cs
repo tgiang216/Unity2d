@@ -8,7 +8,7 @@ public class PlayerCombatCtrl : MonoBehaviour
     [SerializeField] GameObject thunderPrefab;
     [SerializeField] Transform thunderPos;
     [SerializeField] float thunderTime = 0.4f;
-    [SerializeField] MovementSM sm;
+    [SerializeField] PlayerStatesCtrl sm;
     [SerializeField] LayerMask layer;
     public float maxHit = 0.06f;
     public float timeScaleRate = 0.8f;
@@ -27,7 +27,7 @@ public class PlayerCombatCtrl : MonoBehaviour
     
     private void Start()
     {
-        sm = GetComponent<MovementSM>();
+        sm = GetComponent<PlayerStatesCtrl>();
     }
 
     private void FixedUpdate()
@@ -79,7 +79,7 @@ public class PlayerCombatCtrl : MonoBehaviour
     private IEnumerator SlowMotion(float time)
     {       
         Time.timeScale = timeScaleRate;
-        Debug.Log("Slowmotion : " + Time.timeScale);
+        //Debug.Log("Slowmotion : " + Time.timeScale);
         yield return new WaitForSeconds(time);
         Time.timeScale = 1f;
     }

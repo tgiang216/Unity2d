@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class GetHit : BaseState
 {
-    private MovementSM sm;
+    private PlayerStatesCtrl sm;
     private float time;
     private float dir;
 
     public GetHit(StateMachine state) : base("GetHit", state)
     {
-        sm= (MovementSM)state;
+        sm= (PlayerStatesCtrl)state;
     }
 
     public override void Enter()
     {
+        sm.GetComponent<GetHitEffect>().Flash();
         dir = (sm.isFacingRight ? 1 : -1);
         Debug.Log("Enter gethit state");
         sm.horizontalInput = 0;

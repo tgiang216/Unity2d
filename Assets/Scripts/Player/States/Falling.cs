@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Falling : BaseState
 {
-    private MovementSM sm;
+    private PlayerStatesCtrl sm;
 
     public Falling(StateMachine state) : base("Falling", state)
     {
-        sm = (MovementSM) state;
+        sm = (PlayerStatesCtrl) state;
     }
     public override void Enter()
     {

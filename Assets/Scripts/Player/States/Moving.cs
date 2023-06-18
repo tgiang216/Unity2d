@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Moving : BaseState
 {
-    private MovementSM sm;
+    private PlayerStatesCtrl sm;
     //private float horizontalInput;
-    public Moving(MovementSM stateMachine) : base("Moving", stateMachine) 
+    public Moving(PlayerStatesCtrl stateMachine) : base("Moving", stateMachine) 
     {
-        sm = (MovementSM)stateMachine;
+        sm = (PlayerStatesCtrl)stateMachine;
     }
     public override void Enter()
     {

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class HeavyAtk : BaseState
 {
-    private MovementSM sm;
+    private PlayerStatesCtrl sm;
     private float time;
     private float duration;
 
     public HeavyAtk(StateMachine state) : base("HeavyAtk", state)
     {
-        sm = (MovementSM)state;
+        sm = (PlayerStatesCtrl)state;
     }
     public override void Enter()
     {

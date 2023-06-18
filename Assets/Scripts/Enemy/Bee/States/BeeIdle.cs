@@ -14,22 +14,22 @@ public class BeeIdle : BaseState
     public override void Enter()
     {
         Debug.Log("Enter IDLe state Bee");
-        //sm.animator.Play("BoarEnemyIdle");
+        sm.animator.Play("BeeIdle");
         timer = 0;
         sm.inIdleStateTime = Random.Range(2f, 5f);
     }
-    public override void UpdatePhysics()
+    public override void UpdateLogic()   
     {
         timer += Time.deltaTime;
-        if(sm.isAttacking) { sm.inIdleStateTime = 1f; }
+        if(sm.isFoundPlayer) { sm.inIdleStateTime = 1f; }
         if (timer > sm.inIdleStateTime)
         {
-            
+           // Debug.Log("Change to move");
             sm.ChangeState(sm.moveState);
         }
     }
     public override void Exit()
     {
-
+        timer = 0f;
     }
 }

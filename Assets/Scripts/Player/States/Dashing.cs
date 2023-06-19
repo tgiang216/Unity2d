@@ -8,6 +8,7 @@ public class Dashing : BaseState
     private float dashTime;
     private float gravityHold;
     private int dashDir;
+    private float dashJumpForce = 0;
     
     public Dashing(StateMachine state) : base("Dash", state)
     {
@@ -27,19 +28,34 @@ public class Dashing : BaseState
         dashTime = 0f;
         sm.StartCoroutine(DashCoolDawn());
         sm.animator.Play("PlayerDash");
+        sm.ghostCtrl.enabled = true;
+        dashJumpForce = 0;
 
     }
     public override void UpdateLogic()
     {
         dashTime += Time.deltaTime;
-       
-        if(dashTime <= sm.dashTime)
+        if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.K))
         {
-            sm.rb.velocity = new Vector2(sm.dashForce * dashDir, 0f);
+            if(sm.IsGround()) dashJumpForce = sm.dashForce;
         }
-        else
+        if (dashTime <= sm.dashTime)
+        {
+            sm.rb.velocity = new Vector2(sm.dashForce * dashDir, dashJumpForce);
+        }
+        else if (sm.IsGround())
         {
             sm.ChangeState(sm.idleState);
+        }
+        else if (!sm.IsGround() && dashJumpForce > 0)
+        {
+            sm.rb.gravityScale = gravityHold * 10;
+            sm.animator.Play("PlayerFall");
+        }
+        else if (!sm.IsGround() && dashJumpForce == 0)
+        {
+            sm.ChangeState(sm.idleState);
+
         }
       
     }
@@ -52,6 +68,7 @@ public class Dashing : BaseState
         base.Exit();
         sm.isDashing = false;
         sm.rb.gravityScale = gravityHold;
+        sm.ghostCtrl.enabled = false;
     }
 
     private IEnumerator DashCoolDawn()

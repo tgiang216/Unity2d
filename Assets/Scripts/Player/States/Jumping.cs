@@ -13,7 +13,7 @@ public class Jumping : BaseState
     }
     public override void Enter()
     {
-        base.Enter();
+        
         sm.rb.AddForce(new Vector2(0, sm.jumpForce), ForceMode2D.Impulse);
         sm.isJumping = true;
         sm.jumpTime = 0;
@@ -23,11 +23,7 @@ public class Jumping : BaseState
     }
     public override void UpdateLogic()
     {
-        base.UpdateLogic();
-        if (Input.GetKey(KeyCode.Space) && sm.IsGround())
-        {
         
-        }
         if (sm.isJumping)
         {
             //stateMachine.ChangeState(sm.jumpState);

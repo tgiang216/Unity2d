@@ -37,6 +37,10 @@ public class Idle : BaseState
         {
             sm.ChangeState(sm.jumpState);
         }
+        if (Input.GetKeyDown(KeyCode.K) && sm.IsGround())
+        {
+            sm.ChangeState(sm.jumpState);
+        }
         if (sm.rb.velocity.y < -0.1f)
         {
             sm.ChangeState(sm.fallState);

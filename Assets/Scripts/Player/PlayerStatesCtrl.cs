@@ -40,6 +40,8 @@ public class PlayerStatesCtrl : StateMachine
 
     [Header("Animation Setting")]
     public Animator animator;
+    public SpriteRenderer spriteRenderer;
+    public GhostCtrl ghostCtrl;
     //public SpriteRenderer renderer;
     //public AnimatorStateInfo animStateInfo;
  
@@ -96,7 +98,9 @@ public class PlayerStatesCtrl : StateMachine
         rb=GetComponent<Rigidbody2D>();
         boxcollider2D=GetComponent<BoxCollider2D>();
         animator=GetComponent<Animator>();
-        //renderer=GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        ghostCtrl = GetComponent<GhostCtrl>();
+        ghostCtrl.enabled = false;
         this.ChangeState(idleState);
         combatCtrl = GetComponent<PlayerCombatCtrl>();
     }
@@ -114,8 +118,13 @@ public class PlayerStatesCtrl : StateMachine
             this.ChangeState(dashState);
             //Debug.Log("Dash");
         }
-        
-        if(isInvisible)
+        if (Input.GetKey(KeyCode.L) && canDash)
+        {
+            this.ChangeState(dashState);
+            //Debug.Log("Dash");
+        }
+
+        if (isInvisible)
         {
 
         }

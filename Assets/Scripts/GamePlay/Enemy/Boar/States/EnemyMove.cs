@@ -18,7 +18,7 @@ public class EnemyMove : BaseState
 
     public override void Enter()
     {
-        Debug.Log("Enter Move state enemy");
+        //Debug.Log("Enter Move state enemy");
         sm.animator.Play("BoarEnemyWalk");
         currentPos = sm.transform.position;
         distance = Mathf.Abs(sm.transform.position.x - sm.targetToMove.x);

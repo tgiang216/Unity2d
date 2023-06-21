@@ -104,6 +104,7 @@ public class BeeStateCtrl : StateMachine
         if(pointToAround != null) Gizmos.DrawSphere(pointToAround.position, 0.2f);
     }
 
+
     private void OnDestroy()
     {if(beeHive != null)
         {

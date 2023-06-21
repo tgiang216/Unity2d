@@ -36,7 +36,7 @@ public class GamePanel : MonoBehaviour
             }
             else
             {
-                Debug.Log("Time has run out");
+                //Debug.Log("Time has run out");
                 timeRemaining = 0;
                 timeIsRunning = false;
                 timeText.text = string.Format("{0:00}:{1:00}", 0, 0);

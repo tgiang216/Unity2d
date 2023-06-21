@@ -17,7 +17,7 @@ public class Dashing : BaseState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("Enter dash state");
+        //Debug.Log("Enter dash state");
         gravityHold = sm.rb.gravityScale;
         sm.rb.velocity = Vector2.zero;
         sm.horizontalInput = 0;

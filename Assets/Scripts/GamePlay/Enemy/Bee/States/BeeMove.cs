@@ -74,7 +74,7 @@ public class BeeMove : BaseState
         //float x = sm.pointToAround.position.x + distance * Mathf.Cos(angle);
         //float y = sm.pointToAround.position.y + distance * Mathf.Sin(angle);
         //randomPoint = new Vector3(x, y, sm.transform.position.z);
-        Debug.Log(randomPoint);
+        //Debug.Log(randomPoint);
         return new Vector3(randomPoint.x, randomPoint.y, sm.transform.position.z);
     }
 

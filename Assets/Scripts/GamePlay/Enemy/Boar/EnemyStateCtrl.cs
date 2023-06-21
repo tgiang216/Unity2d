@@ -46,6 +46,7 @@ public class EnemyStateCtrl : StateMachine
     [Header("Chasing Setting")]
     public bool isChasing;
     public float chasingSpeed;
+    //public float chasingTime;
 
     private void Awake()
     {

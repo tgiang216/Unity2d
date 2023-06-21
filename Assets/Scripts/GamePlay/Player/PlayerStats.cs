@@ -69,7 +69,7 @@ public class PlayerStats : MonoBehaviour
             OnPlayerTakeDame(enemy.damage);
         }
         if (collision.CompareTag("Trap"))
-            Debug.Log("Take dame by trap");
+            //Debug.Log("Take dame by trap");
         {
             ITrap trap = collision.GetComponent<ITrap>();
             if (trap != null)

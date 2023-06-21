@@ -13,7 +13,7 @@ public class BeeIdle : BaseState
     }
     public override void Enter()
     {
-        Debug.Log("Enter IDLe state Bee");
+        //Debug.Log("Enter IDLe state Bee");
         sm.animator.Play("BeeIdle");
         timer = 0;
         sm.inIdleStateTime = Random.Range(2f, 5f);

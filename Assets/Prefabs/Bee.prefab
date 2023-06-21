@@ -386,7 +386,7 @@ MonoBehaviour:
   timeToPrepair: 1
   isAttacking: 0
   atkRange: 2.5
-  hitRecoverTime: 0.2
+  hitRecoverTime: 1
   isGettingHit: 0
 --- !u!95 &3539841915671616906
 Animator:

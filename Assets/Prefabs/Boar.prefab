@@ -499,7 +499,8 @@ MonoBehaviour:
   timeToPrepair: 1
   isAttacking: 0
   isChasing: 0
-  chasingSpeed: 0
+  chasingSpeed: 3.5
+  chasingTime: 0
 --- !u!114 &-309989499732176838
 MonoBehaviour:
   m_ObjectHideFlags: 0

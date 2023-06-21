@@ -11,7 +11,7 @@ public class BeeDeath : BaseState
     }
     public override void Enter()
     {
-        Debug.Log("Bee die;");
+       // Debug.Log("Bee die;");
         sm.beeHive.OnABeeDeath(sm.gameObject);
     }
 }

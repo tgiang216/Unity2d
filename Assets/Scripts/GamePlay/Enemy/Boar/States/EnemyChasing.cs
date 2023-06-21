@@ -21,7 +21,8 @@ public class EnemyChasing : BaseState
         target = sm.player.position;
         FaceToPlayer();
         sm.animator.Play("BoarEnemyRun");
-        sm.rb.DOMoveX(target.x + offset, 1f).OnComplete(OnMoveComplete);
+        float chaseTime = (sm.distanceToPlayer + offset) / sm.chasingSpeed;
+        sm.rb.DOMoveX(target.x + offset, chaseTime).OnComplete(OnMoveComplete);
         time = 0f;
        
     }

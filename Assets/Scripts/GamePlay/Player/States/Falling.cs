@@ -28,7 +28,7 @@ public class Falling : BaseState
         //air atk transistion
         if (Input.GetMouseButton(0) && sm.canAirAtk)
         {
-            sm.ChangeState(sm.airAtkState);
+            sm.ChangeState(sm.groundAtk1);
         }
     }
 

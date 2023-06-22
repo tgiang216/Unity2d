@@ -231,7 +231,7 @@ Transform:
   m_Children:
   - {fileID: 5543363351930421907}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &303638584418928320
 SpriteRenderer:
@@ -344,7 +344,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.05939555, y: 0.41036963}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.25}
@@ -355,7 +355,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.25, y: 2.5}
+  m_Size: {x: 1.0016179, y: 2.0896306}
   m_EdgeRadius: 0
 --- !u!114 &6328848788288987463
 MonoBehaviour:
@@ -386,7 +386,7 @@ MonoBehaviour:
   timeToPrepair: 1
   isAttacking: 0
   atkRange: 2.5
-  hitRecoverTime: 0.2
+  hitRecoverTime: 1
   isGettingHit: 0
 --- !u!95 &3539841915671616906
 Animator:
@@ -440,7 +440,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
   flashMaterial: {fileID: 2100000, guid: 1257ba937388c8648ae1d94835ec7cd7, type: 2}
-  duration: 0.01
+  duration: 0.05
   flashColor: {r: 1, g: 0, b: 0, a: 1}
   isBlinking: 0
   blinkduration: 0

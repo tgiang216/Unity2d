@@ -27,6 +27,7 @@ public class BeeSeePlayer : BaseState
     }
     public override void Exit()
     {
+        if (sm.beeHive == null) return;
         if (!sm.beeHive.IsPlayerInRange)
         {
             sm.isFoundPlayer= false;

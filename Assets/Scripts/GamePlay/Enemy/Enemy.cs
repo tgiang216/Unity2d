@@ -30,8 +30,8 @@ public class Enemy : MonoBehaviour
             Debug.LogError("effect loi");
         }
         flash.Flash();
-        GameObject hit = Instantiate(effect, hitPos, Quaternion.identity);
-        Destroy(hit, 0.2f);
+        //GameObject hit = Instantiate(effect, hitPos, Quaternion.identity);
+        //Destroy(hit, 0.2f);
 
         
         if(curentHealth <= 0)

@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCombatCtrl : MonoBehaviour
-{  
+{
     [SerializeField] float damage = 20f;
+
+    [Header("Thunder setting")]        
     [SerializeField] GameObject thunderPrefab;
-    [SerializeField] Transform thunderPos;
-    [SerializeField] float thunderTime = 0.4f;
+    [SerializeField] float rate;
+    [SerializeField] GameObject thunderHitPrefab;
+    // [SerializeField] float thunderTime = 0.4f;
+
+
     [SerializeField] PlayerStatesCtrl sm;
     [SerializeField] LayerMask layer;
     public float maxHit = 0.06f;
@@ -50,6 +55,8 @@ public class PlayerCombatCtrl : MonoBehaviour
                 StartCoroutine(SlowMotion(timeSlowMotion));
                 Vector2 hitpoit = ray.point;
                 ray.collider.GetComponent<Enemy>().TakeDamage(damage, hitpoit);
+                AttackHitEffect(hitpoit);
+                AttackEffect(hitpoit);
                 hitime = 0;
 
             }
@@ -57,25 +64,45 @@ public class PlayerCombatCtrl : MonoBehaviour
         }
     }
 
-   public void AttackEffect()
+   public void AttackEffect(Vector3 hitpoint)
     {
         switch(weapon)
         {
             case WeaponType.Normal:
                 break;
             case WeaponType.Thunder:
-                CreateThunder();
+                int rand = Random.Range(0, 100);
+                if (rate > rand)
+                {
+                    CreateThunder(hitpoint);
+                }
                 break;
             case WeaponType.Fire: break;
             case WeaponType.Ice: break;
             
         }
     }
-    public void CreateThunder()
+    public void AttackHitEffect(Vector3 position)
     {
-        GameObject effect = Instantiate(thunderPrefab,thunderPos.position,thunderPos.rotation);
-        Destroy(effect, thunderTime);
+        switch (weapon)
+        {
+            case WeaponType.Normal:
+                break;
+            case WeaponType.Thunder:
+                GameObject effect = Instantiate(thunderHitPrefab, position, Quaternion.identity);
+                Destroy(effect, 0.2f);
+                break;
+            case WeaponType.Fire: break;
+            case WeaponType.Ice: break;
+
+        }
     }
+    public void CreateThunder(Vector3 position)
+    {
+        GameObject effect = Instantiate(thunderPrefab, position, Quaternion.identity);
+        Destroy(effect, 0.4f);
+    }
+    
     private IEnumerator SlowMotion(float time)
     {       
         Time.timeScale = timeScaleRate;

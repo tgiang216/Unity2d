@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
         healthBar.SetHealthBar(curentHealth);
         Vector3 hitPos = positon;
         var flash = GetComponent<GetHitEffect>();
-        if (effect == null)
+        if (flash == null)
         {
             Debug.LogError("effect loi");
         }

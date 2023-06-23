@@ -11,7 +11,10 @@ public class PlayerCombatCtrl : MonoBehaviour
     [SerializeField] float rate;
     [SerializeField] GameObject thunderHitPrefab;
     // [SerializeField] float thunderTime = 0.4f;
-
+    [Header("Fire setting")]
+    [SerializeField] GameObject firePrefab;
+    [SerializeField] float burnRate;
+    [SerializeField] float burnDuration;
 
     [SerializeField] PlayerStatesCtrl sm;
     [SerializeField] LayerMask layer;
@@ -20,6 +23,12 @@ public class PlayerCombatCtrl : MonoBehaviour
     public float timeSlowMotion = 1f;
     private float hitime = 0;
     public Transform hitBox;
+
+    public GameObject ThunderEffect;
+    public GameObject IceEffect;
+    public GameObject FireEffect;
+
+    private GameObject currentEffect;
     public WeaponType weapon;
     public enum WeaponType
     {
@@ -32,7 +41,31 @@ public class PlayerCombatCtrl : MonoBehaviour
     
     private void Start()
     {
+        ThunderEffect.SetActive(false);
+        IceEffect.SetActive(false);
+        FireEffect.SetActive(false);
         sm = GetComponent<PlayerStatesCtrl>();
+        weapon = WeaponType.Normal;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Alpha1))
+        {
+            ChangeWeapon(WeaponType.Thunder);
+        }
+        if (Input.GetKey(KeyCode.Alpha2))
+        {
+            ChangeWeapon(WeaponType.Ice);
+        }
+        if (Input.GetKey(KeyCode.Alpha3))
+        {
+            ChangeWeapon(WeaponType.Fire);
+        }
+        if (Input.GetKey(KeyCode.Alpha4))
+        {
+            ChangeWeapon(WeaponType.Normal);
+        }
     }
 
     private void FixedUpdate()
@@ -41,7 +74,38 @@ public class PlayerCombatCtrl : MonoBehaviour
         if (sm.isAttacking)
         {
             Attack();                          
-        }       
+        }
+       
+    }
+
+    private void ChangeWeapon(WeaponType type)
+    {
+        weapon = type;
+
+        if(weapon == WeaponType.Normal)
+        {
+            ThunderEffect.SetActive(false);
+            IceEffect.SetActive(false);
+            FireEffect.SetActive(false);
+        }
+        if (weapon == WeaponType.Thunder)
+        {
+            ThunderEffect.SetActive(true);
+            IceEffect.SetActive(false);
+            FireEffect.SetActive(false);
+        }
+        if (weapon == WeaponType.Ice)
+        {
+            ThunderEffect.SetActive(false);
+            IceEffect.SetActive(true);
+            FireEffect.SetActive(false);
+        }
+        if (weapon == WeaponType.Fire)
+        {
+            ThunderEffect.SetActive(false);
+            IceEffect.SetActive(false);
+            FireEffect.SetActive(true);
+        }
     }
 
     private void Attack()
@@ -54,9 +118,10 @@ public class PlayerCombatCtrl : MonoBehaviour
             {
                 StartCoroutine(SlowMotion(timeSlowMotion));
                 Vector2 hitpoit = ray.point;
-                ray.collider.GetComponent<Enemy>().TakeDamage(damage, hitpoit);
+                Enemy enemy = ray.collider.GetComponent<Enemy>();
+                enemy.TakeDamage(damage, hitpoit);
                 AttackHitEffect(hitpoit);
-                AttackEffect(hitpoit);
+                AttackEffect(hitpoit, enemy);
                 hitime = 0;
 
             }
@@ -64,20 +129,27 @@ public class PlayerCombatCtrl : MonoBehaviour
         }
     }
 
-   public void AttackEffect(Vector3 hitpoint)
+   public void AttackEffect(Vector3 hitpoint, Enemy enemy)
     {
-        switch(weapon)
+        int rand = Random.Range(0, 100);
+        switch (weapon)
         {
             case WeaponType.Normal:
                 break;
             case WeaponType.Thunder:
-                int rand = Random.Range(0, 100);
+                
                 if (rate > rand)
                 {
                     CreateThunder(hitpoint);
+                    enemy.TakeDamage(damage, hitpoint);
                 }
                 break;
-            case WeaponType.Fire: break;
+            case WeaponType.Fire:
+                if(burnRate > rand)
+                {
+                    CreateBurn(hitpoint, enemy);
+                }
+                break;
             case WeaponType.Ice: break;
             
         }
@@ -89,10 +161,13 @@ public class PlayerCombatCtrl : MonoBehaviour
             case WeaponType.Normal:
                 break;
             case WeaponType.Thunder:
-                GameObject effect = Instantiate(thunderHitPrefab, position, Quaternion.identity);
-                Destroy(effect, 0.2f);
+                GameObject thundereffect = Instantiate(thunderHitPrefab, position, Quaternion.identity);
+                Destroy(thundereffect, 0.2f);
                 break;
-            case WeaponType.Fire: break;
+            case WeaponType.Fire:
+                GameObject fireeffect = Instantiate(thunderHitPrefab, position, Quaternion.identity);
+                Destroy(fireeffect, 0.2f);
+                break;
             case WeaponType.Ice: break;
 
         }
@@ -102,7 +177,11 @@ public class PlayerCombatCtrl : MonoBehaviour
         GameObject effect = Instantiate(thunderPrefab, position, Quaternion.identity);
         Destroy(effect, 0.4f);
     }
-    
+    public void CreateBurn(Vector3 position , Enemy enemy)
+    {
+        GameObject effect = Instantiate(firePrefab, position, Quaternion.identity);
+        Destroy(effect, burnDuration);
+    }
     private IEnumerator SlowMotion(float time)
     {       
         Time.timeScale = timeScaleRate;

@@ -22,6 +22,7 @@ public class BeeStateCtrl : EnemyStateMachine
     [Header("Enemy bee Setting")]
     public Animator animator;
     public Transform player;
+
     public float rangeToSeePlayer;
     public float distanceToPlayer;
     public Rigidbody2D rb;
@@ -82,6 +83,8 @@ public class BeeStateCtrl : EnemyStateMachine
     }
     private void LateUpdate()
     {
+        if (isPlayerDeath) return;
+        
         if (beeHive == null) return;
         //if (isFoundPlayer) return;
         if (beeHive.IsPlayerInRange && !isFoundPlayer)

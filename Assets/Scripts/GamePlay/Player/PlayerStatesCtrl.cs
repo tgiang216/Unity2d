@@ -27,6 +27,8 @@ public class PlayerStatesCtrl : StateMachine
     public AirAttack airAtkState;
     [HideInInspector]
     public HeavyAtk heavyAtkState;
+    [HideInInspector]
+    public Die deathState;
 
     [Header("Player Setting")]
     public Rigidbody2D rb;
@@ -35,7 +37,7 @@ public class PlayerStatesCtrl : StateMachine
     public bool isFacingRight = true;
     public bool isInvisible = false;
     public float invisibleTime = 0.5f;
-    public PlayerCombatCtrl combatCtrl;
+    public PlayerCombatCtrl playerCombatCtrl;
 
 
     [Header("Animation Setting")]
@@ -78,6 +80,9 @@ public class PlayerStatesCtrl : StateMachine
     [Header("AirAtk Setting")]
     public bool canAirAtk = true;
     public float airAtkCooldown = 1;
+
+    [Header("Player Die Setting")]
+    public bool isDeath = false;
     private void Awake()
     {
         idleState = new Idle(this);
@@ -87,10 +92,15 @@ public class PlayerStatesCtrl : StateMachine
         groundAtk1 = new Attack1(this);
         groundAtk2 = new Attack2(this);
         groundAtk3 = new Attack3(this);
-        dashState= new Dashing(this);
+        dashState = new Dashing(this);
         getHitState = new GetHit(this);
         airAtkState = new AirAttack(this);
         heavyAtkState = new HeavyAtk(this);
+        deathState = new Die(this);
+    }
+    private void OnEnable()
+    {
+        PlayerStats.OnPlayerDie += OnPlayerDie;
     }
     protected override void StartSM()
     {
@@ -102,10 +112,11 @@ public class PlayerStatesCtrl : StateMachine
         ghostCtrl = GetComponent<GhostCtrl>();
         ghostCtrl.enabled = false;
         this.ChangeState(idleState);
-        combatCtrl = GetComponent<PlayerCombatCtrl>();
+        playerCombatCtrl = GetComponent<PlayerCombatCtrl>();
     }
     protected override void UpdateSM()
     {
+        if (isDeath) return;
         horizontalInput = Input.GetAxisRaw("Horizontal");
         atkKeyPressed = Input.GetMouseButtonDown(0);
         if(isGettingHit)
@@ -130,6 +141,10 @@ public class PlayerStatesCtrl : StateMachine
         }
         //Debug.Log("horizontalInput "+ horizontalInput);
         //Debug.Log("velocity " + rb.velocity);
+    }
+    private void OnDisable()
+    {
+        PlayerStats.OnPlayerDie -= OnPlayerDie;
     }
     public bool IsGround()
     {
@@ -172,5 +187,10 @@ public class PlayerStatesCtrl : StateMachine
         yield return new WaitForSeconds(time);
         isInvisible= false;
         //gameObject.GetComponent<Collider2D>().isTrigger = false;
+    }
+
+    public void OnPlayerDie()
+    {
+        this.ChangeState(this.deathState);
     }
 }

@@ -13,11 +13,10 @@ public class BackgroundCtrl : MonoBehaviour
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        virtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
+        //virtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
     }
     void Start()
-    {
-        
+    {      
         ScaleCameraSize();
     }
 
@@ -29,14 +28,17 @@ public class BackgroundCtrl : MonoBehaviour
 
     void ScaleCameraSize()
     {
+        Debug.Log("Scale Camera");
         float cameraHeight = virtualCamera.m_Lens.OrthographicSize * 2f;
-        float cameraWidth = cameraHeight * virtualCamera.m_Lens.Aspect;
-
+        float cameraWidth = cameraHeight * 19f/6;
+        //Debug.Log(cameraWidth +"  "+cameraHeight); 
+        //Debug.Log(virtualCamera.m_Lens.Aspect);
         Vector2 spriteSize = spriteRenderer.sprite.bounds.size;
 
         Vector3 scale = transform.localScale;
         scale.x = cameraWidth / spriteSize.x;
         scale.y = cameraHeight / spriteSize.y;
+        Debug.Log(scale.x + "  " + scale.y);
 
         transform.localScale = scale;
     }

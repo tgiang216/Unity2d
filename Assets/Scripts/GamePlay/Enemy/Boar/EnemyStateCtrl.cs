@@ -68,6 +68,7 @@ public class EnemyStateCtrl : EnemyStateMachine
 
     protected override void UpdateSM()
     {
+        if (isPlayerDeath) return;
         if (player == null) return;
         distanceToPlayer = Vector3.Distance(transform.position, player.position);
         if (targetToMove != null) return;

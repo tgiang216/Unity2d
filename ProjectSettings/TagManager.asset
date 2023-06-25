@@ -8,6 +8,7 @@ TagManager:
   - PlayerSword
   - Trap
   - Wall
+  - DeathZone
   layers:
   - Default
   - TransparentFX

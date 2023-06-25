@@ -59,6 +59,7 @@ public class PlayerCombatCtrl : MonoBehaviour
 
     private void Update()
     {
+
         if (Input.GetKey(KeyCode.Alpha1))
         {
             ChangeWeapon(WeaponType.Thunder);

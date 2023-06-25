@@ -369,6 +369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e65937b59221614f8910d025b86422a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  localTimeScale: 1
   animator: {fileID: 0}
   player: {fileID: 0}
   rangeToSeePlayer: 10
@@ -421,11 +422,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b33226327ff3fb647a1453397e9bd30d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 70
+  maxHealth: 100
   damage: 10
   sm: {fileID: 6328848788288987463}
-  effect: {fileID: 6888962865185006346, guid: 11d07ecc7fc76be4295b3f1c4443c162, type: 3}
+  dieEfectPrefab: {fileID: 6678515545950021168, guid: f0baeaf55ff02094b9fe070e7a87ecfa, type: 3}
   healthBar: {fileID: 4181029804480239506}
+  isBurning: 0
+  burnInterval: 0.2
+  slowColor: {r: 0.15094331, g: 0.9056604, b: 0.8905959, a: 1}
+  isSlowing: 0
+  isFreezing: 0
 --- !u!114 &-4793266621799940592
 MonoBehaviour:
   m_ObjectHideFlags: 0

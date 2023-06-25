@@ -15,6 +15,8 @@ public class EnemyIdle : BaseState
     {
         //Debug.Log("Enter IDLe state enemy");
         sm.animator.Play("BoarEnemyIdle");
+        //sm.UpdateAnimationSpeed(sm.localTimeScale);
+        sm.animator.speed = sm.localTimeScale;
         timer = 0;
         sm.inIdleStateTime = Random.Range(2f, 5f);
     }

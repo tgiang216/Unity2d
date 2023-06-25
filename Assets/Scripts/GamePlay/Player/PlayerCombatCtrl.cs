@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerCombatCtrl : MonoBehaviour
 {
@@ -10,11 +11,19 @@ public class PlayerCombatCtrl : MonoBehaviour
     [SerializeField] GameObject thunderPrefab;
     [SerializeField] float rate;
     [SerializeField] GameObject thunderHitPrefab;
+    [SerializeField] BackgroundCtrl backgroundCtrl;
     // [SerializeField] float thunderTime = 0.4f;
     [Header("Fire setting")]
     [SerializeField] GameObject firePrefab;
     [SerializeField] float burnRate;
     [SerializeField] float burnDuration;
+    [SerializeField] GameObject fireHitPrefab;
+
+    [Header("Slow setting")]
+    [SerializeField] float freezingRate;
+    [SerializeField] float slowDuration;
+    [SerializeField] GameObject iceBlockPrefab;
+
 
     [SerializeField] PlayerStatesCtrl sm;
     [SerializeField] LayerMask layer;
@@ -119,8 +128,9 @@ public class PlayerCombatCtrl : MonoBehaviour
                 StartCoroutine(SlowMotion(timeSlowMotion));
                 Vector2 hitpoit = ray.point;
                 Enemy enemy = ray.collider.GetComponent<Enemy>();
+                if (enemy == null) { Debug.LogError("No find enemy"); }
                 enemy.TakeDamage(damage, hitpoit);
-                AttackHitEffect(hitpoit);
+                AttackHitEffect(hitpoit,enemy);
                 AttackEffect(hitpoit, enemy);
                 hitime = 0;
 
@@ -148,13 +158,21 @@ public class PlayerCombatCtrl : MonoBehaviour
                 if(burnRate > rand)
                 {
                     CreateBurn(hitpoint, enemy);
+                    
                 }
                 break;
-            case WeaponType.Ice: break;
+            case WeaponType.Ice:
+                if(freezingRate> rand)
+                {
+                    CreateIceBlock(hitpoint, enemy);
+                }
+                
+                //enemy.ActiveSlowEffect(5f, 0f);
+                break;
             
         }
     }
-    public void AttackHitEffect(Vector3 position)
+    public void AttackHitEffect(Vector3 position, Enemy enemy)
     {
         switch (weapon)
         {
@@ -165,10 +183,14 @@ public class PlayerCombatCtrl : MonoBehaviour
                 Destroy(thundereffect, 0.2f);
                 break;
             case WeaponType.Fire:
-                GameObject fireeffect = Instantiate(thunderHitPrefab, position, Quaternion.identity);
-                Destroy(fireeffect, 0.2f);
+                enemy.ActiveBurnEffect(3f, 1f);
+                GameObject fireeffect = Instantiate(fireHitPrefab, position, Quaternion.identity);
+                fireeffect.transform.parent = enemy.transform;
+                Destroy(fireeffect, 3f);
                 break;
-            case WeaponType.Ice: break;
+            case WeaponType.Ice:
+                enemy.ActiveSlowEffect(3f, 0.5f);
+                break;
 
         }
     }
@@ -176,11 +198,29 @@ public class PlayerCombatCtrl : MonoBehaviour
     {
         GameObject effect = Instantiate(thunderPrefab, position, Quaternion.identity);
         Destroy(effect, 0.4f);
+        backgroundCtrl.ThunderFlash();
+        backgroundCtrl.CameraShake();
     }
     public void CreateBurn(Vector3 position , Enemy enemy)
     {
         GameObject effect = Instantiate(firePrefab, position, Quaternion.identity);
         Destroy(effect, burnDuration);
+    }
+    public void CreateIceBlock(Vector3 position , Enemy enemy)
+    {
+        if(enemy.isFreezing)
+        {
+            enemy.TakeDamage(damage,Vector2.zero);
+            return;
+        }
+        enemy.ActiveSlowEffect(slowDuration, 0f);
+        GameObject effect = Instantiate(iceBlockPrefab, position, Quaternion.identity);
+        effect.transform.parent = enemy.transform;
+        if(effect != null)
+        {
+            Destroy(effect, slowDuration);
+        }
+        
     }
     private IEnumerator SlowMotion(float time)
     {       
@@ -189,4 +229,5 @@ public class PlayerCombatCtrl : MonoBehaviour
         yield return new WaitForSeconds(time);
         Time.timeScale = 1f;
     }
+   
 }

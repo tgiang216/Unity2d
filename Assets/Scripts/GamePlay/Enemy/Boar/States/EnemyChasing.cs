@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 public class EnemyChasing : BaseState
 {
@@ -21,8 +22,10 @@ public class EnemyChasing : BaseState
         target = sm.player.position;
         FaceToPlayer();
         sm.animator.Play("BoarEnemyRun");
+        //sm.UpdateAnimationSpeed(sm.localTimeScale);
         float chaseTime = (sm.distanceToPlayer + offset) / sm.chasingSpeed;
-        sm.rb.DOMoveX(target.x + offset, chaseTime).OnComplete(OnMoveComplete);
+        float actionTime = (sm.localTimeScale == 0f) ? -100f : sm.localTimeScale;
+        sm.rb.DOMoveX(target.x + offset, chaseTime * (2f - actionTime)).OnComplete(OnMoveComplete);
         time = 0f;
        
     }

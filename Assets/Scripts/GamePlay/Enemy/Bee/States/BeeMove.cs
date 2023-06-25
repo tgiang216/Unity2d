@@ -34,7 +34,8 @@ public class BeeMove : BaseState
             sm.isFacinRight = false;
             sm.transform.localScale = new Vector3(1, 1, 1);
         }
-        sm.rb.DOMove(sm.targetToMove, 3f, false).OnComplete(OnMoveComplete);
+        float actionTime = (sm.localTimeScale == 0f) ? -100f : sm.localTimeScale;
+        sm.rb.DOMove(sm.targetToMove, 3f * (2f - actionTime), false).OnComplete(OnMoveComplete);
     }
 
     public override void Exit()

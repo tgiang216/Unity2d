@@ -1,9 +1,9 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.XR;
 using UnityEngine;
 
-public class EnemyStateCtrl : StateMachine
+public class EnemyStateCtrl : EnemyStateMachine
 {
     [HideInInspector]
     public EnemyIdle idleState;
@@ -22,6 +22,7 @@ public class EnemyStateCtrl : StateMachine
     public float distanceToPlayer;
     public Rigidbody2D rb;
     public bool isFacinRight = false;
+    //public float localTimeScale = 1f;
 
     [Header("Move Setting")]
     public bool isMoving;
@@ -74,6 +75,7 @@ public class EnemyStateCtrl : StateMachine
         {
             this.ChangeState(foundState);
         }
+        animator.speed = localTimeScale;
         //Debug.Log("Distance = " + distanceToPlayer);
     }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
 
-public class BeeStateCtrl : StateMachine
+public class BeeStateCtrl : EnemyStateMachine
 {
     [HideInInspector]
     public BeeIdle idleState;
@@ -78,7 +78,7 @@ public class BeeStateCtrl : StateMachine
 
     protected override void UpdateSM()
     {
-        
+        animator.speed = localTimeScale;
     }
     private void LateUpdate()
     {

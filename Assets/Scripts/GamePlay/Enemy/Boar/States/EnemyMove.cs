@@ -20,11 +20,12 @@ public class EnemyMove : BaseState
     {
         //Debug.Log("Enter Move state enemy");
         sm.animator.Play("BoarEnemyWalk");
+       // sm.UpdateAnimationSpeed(sm.localTimeScale);
         currentPos = sm.transform.position;
         distance = Mathf.Abs(sm.transform.position.x - sm.targetToMove.x);
         sm.isMoving= true;
-                       
-        if(currentPos.x < sm.targetToMove.x)
+
+        if (currentPos.x < sm.targetToMove.x)
         {
             sm.isFacinRight = true;
             sm.transform.localScale = new Vector3(-1, 1, 1);
@@ -33,16 +34,21 @@ public class EnemyMove : BaseState
         {
             sm.isFacinRight = false;
             sm.transform.localScale = new Vector3(1, 1, 1);
+
+            float actionTime = (sm.localTimeScale == 0f) ? -100f :sm.localTimeScale;
+
+
+            sm.rb.DOMoveX(sm.targetToMove.x, 3f * (2f - actionTime), false).OnComplete(OnMoveComplete);
+           
+
         }
-        tween =  sm.rb.DOMoveX(sm.targetToMove.x,3f, false).OnComplete(OnMoveComplete);
-      
 
     }
     public override void UpdateLogic()
     {
         if (sm.IsPlayerInRange)
         {
-            if (tween.IsPlaying()) tween.Kill();
+            //if (tween.IsPlaying()) tween.Kill();
             sm.ChangeState(sm.foundState);
         }
 

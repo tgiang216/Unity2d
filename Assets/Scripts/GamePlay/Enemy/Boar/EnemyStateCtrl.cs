@@ -49,7 +49,7 @@ public class EnemyStateCtrl : EnemyStateMachine
     public float chasingSpeed;
     //public float chasingTime;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         moveState = new EnemyMove(this);
         idleState = new EnemyIdle(this);

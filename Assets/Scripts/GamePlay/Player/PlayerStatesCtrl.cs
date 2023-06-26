@@ -118,7 +118,7 @@ public class PlayerStatesCtrl : StateMachine
     {
         if (isDeath) return;
         horizontalInput = Input.GetAxisRaw("Horizontal");
-        atkKeyPressed = Input.GetMouseButtonDown(0);
+        atkKeyPressed = (Input.GetMouseButtonDown(0)|| Input.GetKey(KeyCode.J));
         if(isGettingHit)
         {
             return;

@@ -13,7 +13,7 @@ public class EnemyIdle : BaseState
 
     public override void Enter()
     {
-        //Debug.Log("Enter IDLe state enemy");
+        Debug.Log("Enter IDLe state enemy");
         sm.animator.Play("BoarEnemyIdle");
         //sm.UpdateAnimationSpeed(sm.localTimeScale);
         sm.animator.speed = sm.localTimeScale;

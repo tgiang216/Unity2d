@@ -6,7 +6,7 @@ using UnityEngine.SocialPlatforms;
 
 public class EnemyChasing : BaseState
 {
-    private EnemyStateCtrl sm;
+    protected EnemyStateCtrl sm;
     private Vector2 target;
     private float time;
     private float offset;

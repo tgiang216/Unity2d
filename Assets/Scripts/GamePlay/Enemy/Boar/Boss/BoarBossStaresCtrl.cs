@@ -28,8 +28,10 @@ public class BoarBossStaresCtrl : EnemyStateCtrl
 
     protected override void UpdateSM()
     {
+        if (isStunning) return;
+        collisionTimer += Time.deltaTime; 
         base.UpdateSM();
-        collisionTimer += Time.deltaTime;
+
     }
     public void OnWallCollision()
     {

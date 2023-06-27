@@ -148,10 +148,8 @@ public class PlayerStatesCtrl : StateMachine
     }
     public bool IsGround()
     {
-        //Debug.DrawRay(capsuleCollider2D.bounds.center, Vector2.down * (capsuleCollider2D.bounds.size.y / 2f + 0.1f), Color.red);
-        //return Physics2D.BoxCast(capsuleCollider2D.bounds.center,
-        // capsuleCollider2D.bounds.size, 0f, Vector2.down, 0.1f, jumpAbleGround);
-        Debug.DrawRay(boxcollider2D.bounds.center, Vector2.down * (boxcollider2D.bounds.size.y / 2f + 0.05f), Color.red);
+        
+        //Debug.DrawRay(boxcollider2D.bounds.center, Vector2.down * (boxcollider2D.bounds.size.y / 2f + 0.05f), Color.red);
         return Physics2D.BoxCast(boxcollider2D.bounds.center,
         boxcollider2D.bounds.size, 0f, Vector2.down, 0.05f, jumpAbleGround);
     }

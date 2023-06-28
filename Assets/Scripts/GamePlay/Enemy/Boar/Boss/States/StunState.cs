@@ -21,10 +21,12 @@ public class StunState : BaseState
 
     public override void UpdateLogic()
     {
-        
-        timer+= Time.deltaTime;
+       // Debug.Log("Stun time : " + timer);
+
+        timer += Time.deltaTime;
         if(timer > sm.stunTime)
         {
+            Debug.Log("Stun xong");
             sm.ChangeState(sm.idleState);
         }
     }

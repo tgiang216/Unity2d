@@ -6,6 +6,7 @@ public class EnemyStateMachine : StateMachine
 {
     public float localTimeScale = 1f;
     public bool isPlayerDeath;
+    public GameObject mark;
     private void OnEnable()
     {
         PlayerStats.OnPlayerDie += OnPlayerDie;
@@ -20,4 +21,6 @@ public class EnemyStateMachine : StateMachine
     {
         PlayerStats.OnPlayerDie -= OnPlayerDie;
     }
+
+    
 }

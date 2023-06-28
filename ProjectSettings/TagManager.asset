@@ -9,6 +9,7 @@ TagManager:
   - Trap
   - Wall
   - DeathZone
+  - Thunder
   layers:
   - Default
   - TransparentFX

@@ -28,7 +28,7 @@ public class BackgroundCtrl : MonoBehaviour
 
     void ScaleCameraSize()
     {
-        Debug.Log("Scale Camera");
+        //Debug.Log("Scale Camera");
         float cameraHeight = virtualCamera.m_Lens.OrthographicSize * 2f;
         float cameraWidth = cameraHeight * 19f/6;
         //Debug.Log(cameraWidth +"  "+cameraHeight); 
@@ -38,7 +38,7 @@ public class BackgroundCtrl : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.x = cameraWidth / spriteSize.x;
         scale.y = cameraHeight / spriteSize.y;
-        Debug.Log(scale.x + "  " + scale.y);
+       // Debug.Log(scale.x + "  " + scale.y);
 
         transform.localScale = scale;
     }

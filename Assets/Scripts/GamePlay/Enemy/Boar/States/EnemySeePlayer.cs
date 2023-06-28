@@ -13,7 +13,8 @@ public class EnemySeePlayer : BaseState
     }
     public override void Enter()
     {
-        //Debug.Log("Found Player");
+        Debug.Log("Found Player");
+        if(sm.mark != null) sm.mark.SetActive(true);
         sm.isFoundPlayer = true;
         time = 0;
         FaceToPlayer();
@@ -26,18 +27,20 @@ public class EnemySeePlayer : BaseState
         {
             sm.ChangeState(sm.chasingState);
         }
-    }
-    public override void UpdatePhysics()
-    {
         if (!sm.IsPlayerInRange)
         {
-            sm.isFoundPlayer = false;
+            //sm.isFoundPlayer = false;
             sm.ChangeState(sm.idleState);
         }
     }
+    public override void UpdatePhysics()
+    {
+        
+    }
     public override void Exit()
     {
-
+        sm.isFoundPlayer = false;
+        if (sm.mark != null) sm.mark.SetActive(false);
     }
     private void FaceToPlayer()
     {

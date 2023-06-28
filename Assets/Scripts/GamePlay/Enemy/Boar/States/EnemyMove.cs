@@ -19,6 +19,7 @@ public class EnemyMove : BaseState
     public override void Enter()
     {
         //Debug.Log("Enter Move state enemy");
+        sm.targetToMove = new Vector3(Random.Range(sm.pointToAround.x - sm.moveRange, sm.pointToAround.x + sm.moveRange), 0f);
         sm.animator.Play("BoarEnemyWalk");
        // sm.UpdateAnimationSpeed(sm.localTimeScale);
         currentPos = sm.transform.position;
@@ -34,23 +35,19 @@ public class EnemyMove : BaseState
         {
             sm.isFacinRight = false;
             sm.transform.localScale = new Vector3(1, 1, 1);
-
-            float actionTime = (sm.localTimeScale == 0f) ? -100f :sm.localTimeScale;
-
-
-            sm.rb.DOMoveX(sm.targetToMove.x, 3f * (2f - actionTime), false).OnComplete(OnMoveComplete);
-           
-
         }
+        float actionTime = (sm.localTimeScale == 0f) ? -100f :sm.localTimeScale;
+        tween = sm.rb.DOMoveX(sm.targetToMove.x, 3f * (2f - actionTime), false).OnComplete(OnMoveComplete);
+           
 
     }
     public override void UpdateLogic()
     {
-        if (sm.IsPlayerInRange)
-        {
-            //if (tween.IsPlaying()) tween.Kill();
-            sm.ChangeState(sm.foundState);
-        }
+        //if (sm.IsPlayerInRange)
+        //{
+        //    //if (tween.IsPlaying()) tween.Kill();
+        //    sm.ChangeState(sm.foundState);
+        //}
 
     }
     public override void UpdatePhysics()
@@ -60,12 +57,13 @@ public class EnemyMove : BaseState
     public override void Exit()
     {
         sm.isMoving = false;
+        if (tween.IsPlaying()) tween.Kill();
     }
     private void OnMoveComplete()
     {
        
         sm.ChangeState(sm.idleState);       
-        sm.isMoving = false;
+        //sm.isMoving = false;
     }
 
     private void MoveLeft_Right()

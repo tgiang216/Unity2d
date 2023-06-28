@@ -22,6 +22,7 @@ public class EnemyStateCtrl : EnemyStateMachine
     public float distanceToPlayer;
     public Rigidbody2D rb;
     public bool isFacinRight = false;
+    public bool isBoss =false;
     //public float localTimeScale = 1f;
 
     [Header("Move Setting")]
@@ -38,6 +39,8 @@ public class EnemyStateCtrl : EnemyStateMachine
     public float inIdleStateTime;
 
     [Header("Found Player")]
+    [SerializeField] float foundCoolDown = 2f;
+    [SerializeField] float foundTimer = 0;
     public bool isFoundPlayer;
     public float timeToPrepair = 1f;
 
@@ -71,10 +74,14 @@ public class EnemyStateCtrl : EnemyStateMachine
         if (isPlayerDeath) return;
         if (player == null) return;
         distanceToPlayer = Vector3.Distance(transform.position, player.position);
-        if (targetToMove != null) return;
-        if (IsPlayerInRange && !isFoundPlayer)
+        //if (targetToMove != null) return;
+        foundTimer += Time.deltaTime;
+        if (IsPlayerInRange && !isFoundPlayer && foundTimer >= foundCoolDown && !isChasing )
         {
+            foundTimer = 0;
             this.ChangeState(foundState);
+            //Debug.Log("run...");
+            
         }
         animator.speed = localTimeScale;
         //Debug.Log("Distance = " + distanceToPlayer);

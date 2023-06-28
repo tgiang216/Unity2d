@@ -25,7 +25,7 @@ public class EnemyIdle : BaseState
         timer += Time.deltaTime;
         if (timer > sm.inIdleStateTime) 
         {
-            sm.targetToMove = new Vector3(Random.Range(sm.pointToAround.x - sm.moveRange, sm.pointToAround.x + sm.moveRange), 0);
+            //sm.targetToMove = new Vector3(Random.Range(sm.pointToAround.x - sm.moveRange, sm.pointToAround.x + sm.moveRange), 0);
             sm.ChangeState(sm.moveState);    
         }
         //if (sm.IsPlayerInRange)

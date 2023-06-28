@@ -10,7 +10,7 @@ public class WallCheck : MonoBehaviour
         //if(collision.CompareTag("Enemy")) return;
         if (collision.CompareTag("Wall")) 
         {
-            Debug.Log("Wall");
+            //Debug.Log("Wall");
             bossState.OnWallCollision();
         }
     }

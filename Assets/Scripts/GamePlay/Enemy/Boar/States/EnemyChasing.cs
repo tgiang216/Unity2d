@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
+using UnityEngine.TextCore.Text;
 
 public class EnemyChasing : BaseState
 {
@@ -10,6 +11,7 @@ public class EnemyChasing : BaseState
     private Vector2 target;
     private float time;
     private float offset;
+    Tween tween;
     public EnemyChasing(EnemyStateCtrl state) : base("Chasing Player", state)
     {
         sm = (EnemyStateCtrl)state;
@@ -17,15 +19,16 @@ public class EnemyChasing : BaseState
 
     public override void Enter()
     {
-        //Debug.Log("Enter enemy chasing ");
+       //Debug.Log("Enter enemy chasing ");
         sm.isChasing = true;
         target = sm.player.position;
         FaceToPlayer();
         sm.animator.Play("BoarEnemyRun");
-        //sm.UpdateAnimationSpeed(sm.localTimeScale);
+        
+        //offset = sm.isBoss? 7f : 3f;
         float chaseTime = (sm.distanceToPlayer + offset) / sm.chasingSpeed;
         float actionTime = (sm.localTimeScale == 0f) ? -100f : sm.localTimeScale;
-        sm.rb.DOMoveX(target.x + offset, chaseTime * (2f - actionTime)).OnComplete(OnMoveComplete);
+        tween = sm.rb.DOMoveX(target.x + offset, chaseTime * (2f - actionTime)).OnComplete(OnMoveComplete);
         time = 0f;
        
     }
@@ -34,32 +37,31 @@ public class EnemyChasing : BaseState
         time += Time.deltaTime;
         if (time >= 2f) 
         {
-            if (!sm.IsPlayerInRange)
-            {
-                time = 0f;
-                sm.isChasing = false;
-                sm.isFoundPlayer= false;
-                sm.ChangeState(sm.idleState);
-            }          
+            sm.isChasing = false;
+            sm.ChangeState(sm.idleState);
+            //if (!sm.IsPlayerInRange)
+            //{
+            //    time = 0f;
+            //    sm.isChasing = false;
+            //    sm.isFoundPlayer= false;
+            //    sm.ChangeState(sm.idleState);
+            //}          
         }
     }
     public override void Exit()
     {
-        
+        sm.isChasing = false;
+        if (tween != null) tween.Kill();
     }
     private void OnMoveComplete()
     {
-        sm.isChasing = false;
-        if (!sm.IsPlayerInRange)
-        {
-            sm.ChangeState(sm.idleState);
+        if (sm.isChasing) return;
+        sm.ChangeState(sm.idleState);
+        //if (!sm.IsPlayerInRange)
+        //{
+        //    sm.ChangeState(sm.idleState);
 
-        }
-        else
-        {
-            sm.ChangeState(sm.foundState);
-        }
-        
+        //}   
     }
 
     private void FaceToPlayer()

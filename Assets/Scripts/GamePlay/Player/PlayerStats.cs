@@ -48,6 +48,13 @@ public class PlayerStats : MonoBehaviour
         {
             return;
         }
+        if (collision.CompareTag("Thunder"))
+        {
+            Debug.Log("Take dame by Thunder");
+            
+            OnPlayerTakeDame(30f);
+        }
+
         if (collision.CompareTag("Enemy"))
         {
             Debug.Log("Take dame by trigger");

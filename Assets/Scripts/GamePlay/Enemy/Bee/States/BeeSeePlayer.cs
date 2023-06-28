@@ -15,6 +15,7 @@ public class BeeSeePlayer : BaseState
     {
         //Debug.Log("Found Player");
         sm.isFoundPlayer = true;
+        sm.mark.SetActive(true);
     }
     public override void UpdateLogic()
     {
@@ -23,10 +24,12 @@ public class BeeSeePlayer : BaseState
         if(timer >= sm.timeToPrepair) 
         {
             sm.ChangeState(sm.moveState);
+           
         }
     }
     public override void Exit()
     {
+        sm.mark.SetActive(false);
         if (sm.beeHive == null) return;
         if (!sm.beeHive.IsPlayerInRange)
         {

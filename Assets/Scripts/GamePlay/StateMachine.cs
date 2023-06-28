@@ -17,7 +17,8 @@ public class StateMachine : MonoBehaviour
     protected virtual void StartSM() { }//Debug.Log("Get Component Father"); }
     void Update()
     {
-        if(currentState != null) 
+        
+        if (currentState != null) 
         {
            // Debug.Log("Update running");
             currentState.UpdateLogic(); 

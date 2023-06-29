@@ -16,6 +16,18 @@ public class Item : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Destroy(this.gameObject);
+        if (collision.CompareTag("Player"))
+        {
+            Destroy(this.gameObject);
+            if(Type== ItemType.Heal)
+            {
+                AudioManager.Instance.PlaySE("Heal");
+            } else
+            {
+                AudioManager.Instance.PlaySE("NewWeapon");
+            }
+           
+        }
+            
     }
 }

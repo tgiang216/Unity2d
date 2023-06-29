@@ -84,9 +84,8 @@ public class Enemy : MonoBehaviour
     {
         AudioManager.Instance.PlaySE(sm.dieSoundName);
         GameObject hit = Instantiate(dieEfectPrefab, transform.position, Quaternion.identity);
-        Destroy(hit, 0.5f);
-        
-        Debug.Log(gameObject.name + " Die !");
+        Destroy(hit, 0.5f);       
+       Debug.Log(gameObject.name + " Die !");
         Destroy(gameObject);
         
         

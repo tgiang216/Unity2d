@@ -46,6 +46,8 @@ public class AudioManager : BaseManager<AudioManager>
     {
         AttachBGMSource.volume = PlayerPrefs.GetFloat(CONST.BGM_VOLUME_KEY, CONST.BGM_VOLUME_DEFAULT);
         AttachSESource.volume = PlayerPrefs.GetFloat(CONST.SE_VOLUME_KEY, CONST.SE_VOLUME_DEFAULT);
+
+        //PlaySE("BGM_05");
     }
 
     public void PlaySE(string seName, float delay = 0.0f)

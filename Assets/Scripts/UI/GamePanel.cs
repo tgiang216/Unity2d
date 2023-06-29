@@ -29,6 +29,7 @@ public class GamePanel : MonoBehaviour
         PlayerStats.OnPlayerTakeDamage += OnPlayerTakeDamage;
         PlayerCombatCtrl.OnChangeWeapon += OnPlayerChangeWeapon;
         PlayerCombatCtrl.OnGetNewWeapon += OnPlayerGetNewWeapon;
+        AudioManager.Instance.PlayBGM("BGM_Game");
     }
 
     public void SetheathBar()

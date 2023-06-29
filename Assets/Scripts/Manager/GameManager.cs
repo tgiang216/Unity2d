@@ -16,7 +16,11 @@ public class GameManager : BaseManager<GameManager>
     protected override void Awake()
     {
         base.Awake();
-        //cherries = PlayerPrefs.GetInt(CherryKey, 0);
+        
+    }
+    private void Start()
+    {
+       
     }
 
     public void UpdateCherries(int value)
@@ -28,6 +32,7 @@ public class GameManager : BaseManager<GameManager>
     {
         isPlaying = true;
         Time.timeScale = 1f;
+        
     }
 
     public void PauseGame()
@@ -58,6 +63,7 @@ public class GameManager : BaseManager<GameManager>
             UIManager.Instance.ActiveVictoryPanel(false);
             UIManager.Instance.ActiveLosePanel(false);
         }
+        
     }
 
     public void EndGame()

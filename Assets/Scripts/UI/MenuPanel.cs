@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class MenuPanel : MonoBehaviour
 {
+    private void OnEnable()
+    {
+        
+    }
+    private void Start()
+    {
+        AudioManager.Instance.PlayBGM("BGM_Title");
+    }
+
     public void OnClickedStartGameButton()
     {
         if (UIManager.HasInstance)
@@ -19,5 +28,10 @@ public class MenuPanel : MonoBehaviour
         {
             UIManager.Instance.ActiveSettingPanel(true);
         }
+    }
+    private IEnumerator PlayMusic()
+    {
+        yield return new WaitForSeconds(2f);
+        
     }
 }

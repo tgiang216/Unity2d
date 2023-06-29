@@ -18,7 +18,7 @@ public class BackgroundCtrl : MonoBehaviour
     void Start()
     {      
         ScaleCameraSize();
-        AudioManager.Instance.PlayBGM("BGM_05");
+        AudioManager.Instance.PlayBGM("BGM_Game");
     }
 
     // Update is called once per frame

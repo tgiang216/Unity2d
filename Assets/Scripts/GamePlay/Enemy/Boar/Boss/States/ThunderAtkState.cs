@@ -19,6 +19,9 @@ public class ThunderAtkState : BaseState
         sm.isThunderatk = true;
         Debug.Log("Begin atk");
         sm.backgroundCtrl.ThunderFlash();
+        sm.mark.SetActive(true);
+        sm.animator.Play("BoarEnemyAtk");
+        FaceToPlayer();
     }
 
     public override void UpdateLogic()
@@ -38,5 +41,20 @@ public class ThunderAtkState : BaseState
     public override void Exit()
     {
         sm.isThunderatk = false;
+        sm.mark.SetActive(false);
+    }
+
+    private void FaceToPlayer()
+    {
+        if (sm.transform.position.x < sm.player.position.x)
+        {
+            sm.isFacinRight = true;
+            sm.transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else
+        {
+            sm.isFacinRight = false;
+            sm.transform.localScale = new Vector3(1, 1, 1);
+        }
     }
 }

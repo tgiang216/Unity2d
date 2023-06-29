@@ -43,9 +43,10 @@ public class BoarBossStaresCtrl : EnemyStateCtrl
         if (isStunning) return;
         if (isThunderatk) return;
         collisionTimer += Time.deltaTime;
-        if (stunCount >= stunMax)
+        if (stunCount >= stunMax || chasCount >=3f)
         {
             stunCount = 0;
+            chasCount= 0;
             ChangeState(atkState);
             return;
         }
@@ -73,4 +74,6 @@ public class BoarBossStaresCtrl : EnemyStateCtrl
         backgroundCtrl.CameraShake();
         Debug.Log("create thunder");
     }
+
+    
 }

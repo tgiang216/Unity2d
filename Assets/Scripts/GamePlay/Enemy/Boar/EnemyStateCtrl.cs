@@ -36,10 +36,12 @@ public class EnemyStateCtrl : EnemyStateMachine
     public float moveRange;
 
     [Header("Idle Setting")]
+    [HideInInspector]
     public float inIdleStateTime;
 
     [Header("Found Player")]
     [SerializeField] float foundCoolDown = 2f;
+
     [SerializeField] float foundTimer = 0;
     public bool isFoundPlayer;
     public float timeToPrepair = 1f;
@@ -50,6 +52,7 @@ public class EnemyStateCtrl : EnemyStateMachine
     [Header("Chasing Setting")]
     public bool isChasing;
     public float chasingSpeed;
+    public int chasCount = 0;
     //public float chasingTime;
 
     protected virtual void Awake()

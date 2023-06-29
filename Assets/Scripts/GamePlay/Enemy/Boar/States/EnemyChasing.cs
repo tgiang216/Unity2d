@@ -21,6 +21,7 @@ public class EnemyChasing : BaseState
     {
        //Debug.Log("Enter enemy chasing ");
         sm.isChasing = true;
+        sm.chasCount++;
         target = sm.player.position;
         FaceToPlayer();
         sm.animator.Play("BoarEnemyRun");

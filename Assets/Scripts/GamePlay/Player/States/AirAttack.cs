@@ -20,6 +20,7 @@ public class AirAttack : BaseState
         animTime = sm.GetClipLenght("PlayerAtk1");
         sm.StartCoroutine(AirAtkCoolDown());
         sm.isAttacking = true;
+        AudioManager.Instance.PlaySE("MeleeAtk");
     }
     public override void UpdateLogic()
     {

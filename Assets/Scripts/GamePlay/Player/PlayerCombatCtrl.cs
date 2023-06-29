@@ -195,6 +195,7 @@ public class PlayerCombatCtrl : MonoBehaviour
     }
     public void AttackHitEffect(Vector3 position, Enemy enemy)
     {
+        AudioManager.Instance.PlaySE("Slash");
         switch (weapon)
         {
             case WeaponType.Normal:
@@ -221,6 +222,7 @@ public class PlayerCombatCtrl : MonoBehaviour
         Destroy(effect, 0.4f);
         backgroundCtrl.ThunderFlash();
         backgroundCtrl.CameraShake();
+        AudioManager.Instance.PlaySE("Thunder");
     }
     public void CreateBurn(Vector3 position , Enemy enemy)
     {

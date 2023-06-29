@@ -18,7 +18,7 @@ public class Jumping : BaseState
         sm.isJumping = true;
         sm.jumpTime = 0;
         sm.animator.Play("PlayerJump");
-
+        AudioManager.Instance.PlaySE("Jump2");
         //Debug.Log("Enter Jump state");
     }
     public override void UpdateLogic()

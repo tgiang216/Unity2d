@@ -6,6 +6,7 @@ public class EnemyStateMachine : StateMachine
 {
     public float localTimeScale = 1f;
     public bool isPlayerDeath;
+    public string dieSoundName;
     public GameObject mark;
     private void OnEnable()
     {

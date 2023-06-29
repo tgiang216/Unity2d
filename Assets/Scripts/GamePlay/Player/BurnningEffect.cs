@@ -21,7 +21,7 @@ public class BurnningEffect : MonoBehaviour
     
     void Start()
     {
-        
+        AudioManager.Instance.PlaySE("Fire");
     }
 
     // Update is called once per frame
@@ -48,6 +48,10 @@ public class BurnningEffect : MonoBehaviour
                     enemy.TakeDamage(damage, Vector2.zero);
             }
         }     
+    }
+    private void OnDestroy()
+    {
+        AudioManager.Instance.StopSE("Fire");
     }
     private void OnDrawGizmos()
     {

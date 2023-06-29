@@ -19,6 +19,7 @@ public class HeavyAtk : BaseState
         sm.isAttacking = true;
         sm.animator.Play("PlayerAtk1"); // Play a heavy atk
         duration = sm.GetClipLenght("PlayerAtk1");
+        AudioManager.Instance.PlaySE("MeleeAtk");
         //sm.combatCtrl.CreateThunder();
         //sm.animStateInfo = sm.animator.GetCurrentAnimatorStateInfo(0);
     }

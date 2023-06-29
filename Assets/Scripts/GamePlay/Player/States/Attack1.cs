@@ -26,6 +26,7 @@ public class Attack1 : BaseState
         sm.isAttacking = true;
         sm.animator.Play("PlayerAtk1");
         duration = sm.GetClipLenght("PlayerAtk1");
+        AudioManager.Instance.PlaySE("MeleeAtk");
         //Debug.Log("atk1 duration " +duration);
         //sm.animStateInfo = sm.animator.GetCurrentAnimatorStateInfo(0);
     }

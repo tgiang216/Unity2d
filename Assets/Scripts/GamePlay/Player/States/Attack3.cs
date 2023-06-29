@@ -22,7 +22,7 @@ public class Attack3 : BaseState
         sm.isAttacking = true;
         sm.animator.Play("PlayerAtk3");
         duration = sm.GetClipLenght("PlayerAtk1");
-
+        AudioManager.Instance.PlaySE("MeleeAtk");
         //sm.animStateInfo = sm.animator.GetCurrentAnimatorStateInfo(0);
     }
     public override void UpdateLogic()

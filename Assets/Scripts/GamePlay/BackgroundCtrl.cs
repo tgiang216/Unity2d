@@ -18,6 +18,7 @@ public class BackgroundCtrl : MonoBehaviour
     void Start()
     {      
         ScaleCameraSize();
+        AudioManager.Instance.PlayBGM("BGM_05");
     }
 
     // Update is called once per frame
@@ -71,7 +72,7 @@ public class BackgroundCtrl : MonoBehaviour
         spriteRenderer.color = thunerOriginColor;
     }
 
-    private IEnumerator CameraShake(float duration)
+    public IEnumerator CameraShake(float duration)
     {
         CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin =
             virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();

@@ -23,6 +23,7 @@ public class EnemyStateCtrl : EnemyStateMachine
     public Rigidbody2D rb;
     public bool isFacinRight = false;
     public bool isBoss =false;
+    
     //public float localTimeScale = 1f;
 
     [Header("Move Setting")]
@@ -70,6 +71,7 @@ public class EnemyStateCtrl : EnemyStateMachine
         player = GameObject.FindWithTag("Player").transform;
         pointToAround = transform.position;
         this.ChangeState(idleState);
+        dieSoundName = "Pig";
     }
 
     protected override void UpdateSM()

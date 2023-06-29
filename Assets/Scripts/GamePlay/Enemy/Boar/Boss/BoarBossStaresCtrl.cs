@@ -33,6 +33,7 @@ public class BoarBossStaresCtrl : EnemyStateCtrl
     protected override void StartSM()
     {
         base.StartSM();
+        backgroundCtrl = GameObject.FindFirstObjectByType<BackgroundCtrl>();
         stunCount= 0;
         collisionTimer = wallCollisionCooldown;
     }
@@ -62,6 +63,8 @@ public class BoarBossStaresCtrl : EnemyStateCtrl
             collisionTimer = 0;
             //Dung tuong
             this.ChangeState(stunState);
+            backgroundCtrl.CameraShake();
+            AudioManager.Instance.PlaySE("Quake");
             stunCount++;
         }
         
@@ -73,6 +76,7 @@ public class BoarBossStaresCtrl : EnemyStateCtrl
         backgroundCtrl.ThunderFlash();
         backgroundCtrl.CameraShake();
         Debug.Log("create thunder");
+        AudioManager.Instance.PlaySE("Thunder");
     }
 
     

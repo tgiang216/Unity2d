@@ -24,6 +24,7 @@ public class GetHit : BaseState
         Vector2 force = new Vector2(-sm.hitForce*dir*2, sm.hitForce);
         sm.rb.AddForce(force);
         sm.animator.Play("PlayerGetHit");
+        AudioManager.Instance.PlaySE("PlayerGetHit");
         time = 0;
     }
     public override void UpdateLogic()

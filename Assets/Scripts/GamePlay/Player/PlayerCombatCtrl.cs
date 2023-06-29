@@ -45,6 +45,7 @@ public class PlayerCombatCtrl : MonoBehaviour
     public bool canUseIce = false;
 
     public static event Action<int> OnChangeWeapon;
+    public static event Action<int> OnGetNewWeapon;
     public WeaponType weapon;
     public enum WeaponType
     {
@@ -98,6 +99,14 @@ public class PlayerCombatCtrl : MonoBehaviour
        
     }
 
+    public void GetNewWeapon(int type)
+    {
+        if (type == 1) canUseThunder = true;
+        if (type == 2) canUseFire = true;
+        if (type == 3) canUseIce = true;
+        OnGetNewWeapon?.Invoke(type);
+    }
+
     private void ChangeWeapon(WeaponType type)
     {
         weapon = type;
@@ -126,7 +135,7 @@ public class PlayerCombatCtrl : MonoBehaviour
             IceEffect.SetActive(false);
             FireEffect.SetActive(true);
         }
-        OnChangeWeapon((int)weapon);
+        OnChangeWeapon?.Invoke((int)weapon);
     }
 
     private void Attack()

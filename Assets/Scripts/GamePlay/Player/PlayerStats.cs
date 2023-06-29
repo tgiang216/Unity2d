@@ -35,7 +35,30 @@ public class PlayerStats : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-   
+        if (collision.CompareTag("Item"))
+        {
+            Item item = collision.GetComponent<Item>();
+            if (item == null) Debug.LogError("Loi Item");
+            if (item.Type == Item.ItemType.Heal)
+            {
+
+            }
+            if (item.Type == Item.ItemType.Thunder)
+            {
+                player.GetNewWeapon(1);
+                Debug.Log("Get Thunder");
+            }
+            if (item.Type == Item.ItemType.Fire)
+            {
+                player.GetNewWeapon(2);
+                Debug.Log("Get Fire");
+            }
+            if (item.Type == Item.ItemType.Ice)
+            {
+                player.GetNewWeapon(3);
+                Debug.Log("Get Ice");
+            }
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -74,6 +97,8 @@ public class PlayerStats : MonoBehaviour
                 OnPlayerTakeDame(trap.MakeDamage());
 
         }
+
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

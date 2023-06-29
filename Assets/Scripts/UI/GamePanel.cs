@@ -25,11 +25,10 @@ public class GamePanel : MonoBehaviour
     [SerializeField]
     private Transform selectIcon;
     private void OnEnable()
-    {
-        
-        
+    {              
         PlayerStats.OnPlayerTakeDamage += OnPlayerTakeDamage;
         PlayerCombatCtrl.OnChangeWeapon += OnPlayerChangeWeapon;
+        PlayerCombatCtrl.OnGetNewWeapon += OnPlayerGetNewWeapon;
     }
 
     public void SetheathBar()
@@ -43,6 +42,7 @@ public class GamePanel : MonoBehaviour
     {
         PlayerStats.OnPlayerTakeDamage -= OnPlayerTakeDamage;
         PlayerCombatCtrl.OnChangeWeapon -= OnPlayerChangeWeapon;
+        PlayerCombatCtrl.OnGetNewWeapon -= OnPlayerGetNewWeapon;
     }
 
     private void OnPlayerTakeDamage(float damage)
@@ -66,6 +66,21 @@ public class GamePanel : MonoBehaviour
                 break;
             case 3:
                 selectIcon.position = iceIcon.position;
+                break;
+        }
+    }
+    private void OnPlayerGetNewWeapon(int type)
+    {
+        switch (type)
+        {
+            case 1:
+                thunderIcon.gameObject.SetActive(true);
+                break;
+            case 2:
+                fireIcon.gameObject.SetActive(true);
+                break;
+            case 3:
+                iceIcon.gameObject.SetActive(true);
                 break;
         }
     }

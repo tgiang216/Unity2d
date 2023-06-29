@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 public class PlayerCombatCtrl : MonoBehaviour
 {
@@ -38,13 +39,19 @@ public class PlayerCombatCtrl : MonoBehaviour
     public GameObject FireEffect;
 
     private GameObject currentEffect;
+
+    public bool canUseThunder = false;
+    public bool canUseFire = false;
+    public bool canUseIce = false;
+
+    public static event Action<int> OnChangeWeapon;
     public WeaponType weapon;
     public enum WeaponType
     {
         Normal,
         Thunder,
-        Ice,
-        Fire
+        Fire,
+        Ice
     }
 
     
@@ -62,15 +69,18 @@ public class PlayerCombatCtrl : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Alpha1))
         {
+            if (!canUseThunder) return;
             ChangeWeapon(WeaponType.Thunder);
         }
         if (Input.GetKey(KeyCode.Alpha2))
         {
-            ChangeWeapon(WeaponType.Ice);
+            if (!canUseFire) return;
+            ChangeWeapon(WeaponType.Fire);
         }
         if (Input.GetKey(KeyCode.Alpha3))
         {
-            ChangeWeapon(WeaponType.Fire);
+            if (!canUseIce) return;
+            ChangeWeapon(WeaponType.Ice);
         }
         if (Input.GetKey(KeyCode.Alpha4))
         {
@@ -116,6 +126,7 @@ public class PlayerCombatCtrl : MonoBehaviour
             IceEffect.SetActive(false);
             FireEffect.SetActive(true);
         }
+        OnChangeWeapon((int)weapon);
     }
 
     private void Attack()

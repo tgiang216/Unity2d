@@ -32,6 +32,10 @@ public class UIManager : BaseManager<UIManager>
     private LoadingPanel loadingPanel;
     public LoadingPanel LoadingPanel => loadingPanel;
 
+    private void OnEnable()
+    {
+        PlayerStats.OnPlayerDie += OnPlayerDie;
+    }
     void Start()
     {
         ActiveMenuPanel(true);
@@ -54,7 +58,19 @@ public class UIManager : BaseManager<UIManager>
             }
         }
     }
+    private void OnDisable()
+    {
+        PlayerStats.OnPlayerDie -= OnPlayerDie;
+    }
+    public void OnPlayerDie()
+    {
 
+        if (GameManager.HasInstance && GameManager.Instance.IsPlaying)
+        {
+            GameManager.Instance.PauseGame();
+            ActiveLosePanel(true);
+        }
+    }
     public void ActiveMenuPanel(bool active)
     {
         menuPanel.gameObject.SetActive(active);

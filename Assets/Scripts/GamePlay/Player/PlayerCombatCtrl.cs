@@ -67,6 +67,7 @@ public class PlayerCombatCtrl : MonoBehaviour
 
     private void Update()
     {
+        if (sm.isDeath) return;
 
         if (Input.GetKey(KeyCode.Alpha1))
         {
@@ -91,10 +92,11 @@ public class PlayerCombatCtrl : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (sm.isDeath) return;
         hitime += Time.fixedDeltaTime;
         if (sm.isAttacking)
         {
-            Attack();                          
+            Attack();
         }
        
     }
@@ -149,7 +151,7 @@ public class PlayerCombatCtrl : MonoBehaviour
                 StartCoroutine(SlowMotion(timeSlowMotion));
                 Vector2 hitpoit = ray.point;
                 Enemy enemy = ray.collider.GetComponent<Enemy>();
-                if (enemy == null) { Debug.LogError("No find enemy"); }
+                if (enemy == null) { Debug.LogError("No find enemy"); return; }
                 enemy.TakeDamage(damage, hitpoit);
                 AttackHitEffect(hitpoit,enemy);
                 AttackEffect(hitpoit, enemy);

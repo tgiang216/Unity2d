@@ -32,6 +32,7 @@ public class UIManager : BaseManager<UIManager>
     private LoadingPanel loadingPanel;
     public LoadingPanel LoadingPanel => loadingPanel;
 
+    private Coroutine countin;
     private void OnEnable()
     {
         PlayerStats.OnPlayerDie += OnPlayerDie;
@@ -64,13 +65,24 @@ public class UIManager : BaseManager<UIManager>
     }
     public void OnPlayerDie()
     {
+        if (GameManager.HasInstance && GameManager.Instance.IsPlaying)
+        {
+            GameManager.Instance.PauseGame();
+            ActiveLosePanel(true);
+        }
 
+    }
+
+    private IEnumerator PlayerDie()
+    {
+        yield return new WaitForSeconds(3f);
         if (GameManager.HasInstance && GameManager.Instance.IsPlaying)
         {
             GameManager.Instance.PauseGame();
             ActiveLosePanel(true);
         }
     }
+
     public void ActiveMenuPanel(bool active)
     {
         menuPanel.gameObject.SetActive(active);

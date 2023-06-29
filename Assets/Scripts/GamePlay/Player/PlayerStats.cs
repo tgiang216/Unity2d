@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -32,16 +33,23 @@ public class PlayerStats : MonoBehaviour
     private void Start()
     {
         healthData.currentHP = healthData.maxHP;
+        
     }
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("DeathZone"))
+        {
+            Die();
+        }
         if (collision.CompareTag("Item"))
         {
             Item item = collision.GetComponent<Item>();
             if (item == null) Debug.LogError("Loi Item");
             if (item.Type == Item.ItemType.Heal)
             {
-
+                healthData.currentHP += 50f; 
+                OnPlayerTakeDamage?.Invoke(0f);
             }
             if (item.Type == Item.ItemType.Thunder)
             {
@@ -63,10 +71,7 @@ public class PlayerStats : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("DeathZone"))
-        {
-            Die();
-        }
+       
         if (sm.isInvisible)
         {
             return;
@@ -136,7 +141,7 @@ public class PlayerStats : MonoBehaviour
 
     public void Die()
     {
-        sm.ChangeState(sm.deathState);
+        //sm.ChangeState(sm.deathState);
         Debug.Log("Player Die !");
         OnPlayerDie?.Invoke();
     }

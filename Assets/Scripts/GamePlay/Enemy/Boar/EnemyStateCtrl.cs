@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.XR;
+
 using UnityEngine;
 
 public class EnemyStateCtrl : EnemyStateMachine
@@ -93,6 +93,10 @@ public class EnemyStateCtrl : EnemyStateMachine
     }
 
     public bool IsPlayerInRange => (distanceToPlayer < rangeToSeePlayer);
-    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, rangeToSeePlayer);
+    }
 }
 

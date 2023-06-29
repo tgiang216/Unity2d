@@ -30,6 +30,9 @@ public class GamePanel : MonoBehaviour
         PlayerCombatCtrl.OnChangeWeapon += OnPlayerChangeWeapon;
         PlayerCombatCtrl.OnGetNewWeapon += OnPlayerGetNewWeapon;
         AudioManager.Instance.PlayBGM("BGM_Game");
+        playerHealthData.currentHP = playerHealthData.maxHP;
+        SetheathBar();
+        ResetStatus();
     }
 
     public void SetheathBar()
@@ -84,5 +87,11 @@ public class GamePanel : MonoBehaviour
                 iceIcon.gameObject.SetActive(true);
                 break;
         }
+    }
+    private void ResetStatus()
+    {
+        thunderIcon.gameObject.SetActive(false);
+        fireIcon.gameObject.SetActive(false);
+        iceIcon.gameObject.SetActive(false);
     }
 }

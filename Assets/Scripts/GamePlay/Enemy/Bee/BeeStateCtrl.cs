@@ -65,7 +65,8 @@ public class BeeStateCtrl : EnemyStateMachine
     protected override void StartSM()
     {
         base.StartSM();
-        rb=GetComponent<Rigidbody2D>();
+        dieSoundName = "Slash";
+        rb =GetComponent<Rigidbody2D>();
         animator= GetComponent<Animator>();    
         if(beeHive!=null)
         {

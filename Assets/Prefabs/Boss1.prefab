@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 2000
-  damage: 0
+  damage: 20
   sm: {fileID: 0}
   dieEfectPrefab: {fileID: 6678515545950021168, guid: f0baeaf55ff02094b9fe070e7a87ecfa, type: 3}
   healthBar: {fileID: 2753990481172957119}
@@ -269,6 +269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   localTimeScale: 1
   isPlayerDeath: 0
+  dieSoundName: 
   mark: {fileID: 8584634384869455084}
   animator: {fileID: 0}
   player: {fileID: 0}

@@ -25,12 +25,14 @@ public class BeeHiveCtrl : MonoBehaviour
 
     [SerializeField]
     private float bornBeeCooldown;
+    private AudioSource audio;
 
     private void Start()
     {
         timer = 0;
         beeList= new List<GameObject>();
         player = GameObject.FindWithTag("Player").transform;
+        audio = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -41,6 +43,13 @@ public class BeeHiveCtrl : MonoBehaviour
         {
             timer = 0;
             MakeBee();
+        }
+        if (DistaceToPlayer < range*2)
+        {
+            audio.mute = false;
+        }else
+        {
+            audio.mute = true;
         }
     }
 

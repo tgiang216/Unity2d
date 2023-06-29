@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.ReorderableList;
+
 using UnityEngine;
 
 public class PlayerStatesCtrl : StateMachine
@@ -148,10 +148,14 @@ public class PlayerStatesCtrl : StateMachine
     }
     public bool IsGround()
     {
-        
+        bool check = false;
         //Debug.DrawRay(boxcollider2D.bounds.center, Vector2.down * (boxcollider2D.bounds.size.y / 2f + 0.05f), Color.red);
-        return Physics2D.BoxCast(boxcollider2D.bounds.center,
+        check =  Physics2D.BoxCast(boxcollider2D.bounds.center,
         boxcollider2D.bounds.size, 0f, Vector2.down, 0.05f, jumpAbleGround);
+       // if(check) { return check; }
+       // check = Physics2D.BoxCast(boxcollider2D.bounds.center,
+       //boxcollider2D.bounds.size, 0f, Vector2.down, 0.05f, LayerMask.NameToLayer("Enemy"));
+        return check;
     }
 
 

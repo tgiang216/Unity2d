@@ -48,6 +48,7 @@ public class BoarBossStaresCtrl : EnemyStateCtrl
         {
             stunCount = 0;
             chasCount= 0;
+            if (!IsPlayerInRange) return;
             ChangeState(atkState);
             return;
         }

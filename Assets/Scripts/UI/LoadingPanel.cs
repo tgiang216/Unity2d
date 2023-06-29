@@ -29,7 +29,7 @@ public class LoadingPanel : MonoBehaviour
             loadingText.SetText($"LOADING SCENES: {asyncOperation.progress * 100}%");
             if(asyncOperation.progress >= 0.9f)
             {
-                loadingText.SetText("Press the space bar to continue");
+                loadingText.SetText("Press the SPACE to continue");
                 loadingSlider.value = 1f;
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
